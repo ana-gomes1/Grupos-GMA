@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>iGrupos - Dashboard</title>
+    <title>iGrupos - Grupos</title>
 
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
+    <!-- Font Awesome -->
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -29,132 +30,1403 @@
     </script>
 </head>
 
-<body class="bg-background text-slate-800">
+<body class="bg-background text-slate-700">
 
-    <div class="flex min-h-screen">
+<div class="flex min-h-screen">
 
-        <aside class="w-[275px] bg-sidebar text-white flex flex-col">
+    <!-- ===================================================== -->
+    <!-- SIDEBAR -->
+    <!-- ===================================================== -->
 
-            <div class="h-[90px] flex items-center px-7">
-                <i class="fa-solid fa-users text-3xl mr-4"></i>
+    <aside class="w-[240px] bg-sidebar text-white flex flex-col">
 
-                <span class="text-2xl font-semibold">
+        <!-- Logo -->
+        <div class="h-[75px] flex items-center px-7">
+            <div class="flex items-center gap-3">
+
+                <i class="fa-solid fa-users text-2xl"></i>
+
+                <span class="text-xl font-semibold">
                     iGrupos
                 </span>
+
             </div>
+        </div>
 
-            <nav class="px-4 space-y-2">
 
-                <a href="dashboard.html"
-                   class="flex items-center gap-4 px-5 py-4 rounded-lg
-                          hover:bg-white/10 text-white font-medium nav-item">
+        <!-- Menu -->
+        <nav class="px-4 space-y-2">
 
-                    <i class="fa-solid fa-house text-lg"></i>
+            <a href="index.html"
+               class="nav-item flex items-center gap-4 px-4 py-3 rounded-lg
+                      hover:bg-white/10 transition">
 
-                    <span>Início</span>
-                </a>
+                <i class="fa-solid fa-house w-5"></i>
 
-                <a href="grupos.html"
-                   class="flex items-center gap-4 px-5 py-4 rounded-lg
-                          hover:bg-white/10 transition nav-item">
+                <span>Dashboard</span>
 
-                    <i class="fa-solid fa-user-group text-lg"></i>
+            </a>
 
-                    <span>Grupos</span>
-                </a>
 
-                <a href="integrantes.html"
-                   class="flex items-center gap-4 px-5 py-4 rounded-lg
-                          hover:bg-white/10 transition nav-item">
+            <a href="grupos.html"
+               class="nav-item flex items-center gap-4 px-4 py-3 rounded-lg
+                      bg-primary text-white">
 
-                    <i class="fa-solid fa-users text-lg"></i>
+                <i class="fa-solid fa-users w-5"></i>
 
-                    <span>Integrantes</span>
-                </a>
+                <span>Grupos</span>
 
-                <a href="movimentacoes.html"
-                   class="flex items-center gap-4 px-5 py-4 rounded-lg
-                          hover:bg-white/10 transition nav-item">
+            </a>
 
-                    <i class="fa-regular fa-clipboard text-lg"></i>
 
-                    <span>Movimentações</span>
-                </a>
+            <a href="integrantes.html"
+               class="nav-item flex items-center gap-4 px-4 py-3 rounded-lg
+                      hover:bg-white/10 transition">
 
-                <a href="config.html"
-                   class="flex items-center gap-4 px-5 py-4 rounded-lg
-                          hover:bg-white/10 transition nav-item">
+                <i class="fa-solid fa-user-group w-5"></i>
 
-                    <i class="fa-solid fa-gear text-lg"></i>
+                <span>Integrantes</span>
 
-                    <span>Configurações</span>
-                </a>
+            </a>
 
-            </nav>
 
-            <div class="mt-auto px-7 pb-7">
+            <a href="movimentacoes.html"
+               class="nav-item flex items-center gap-4 px-4 py-3 rounded-lg
+                      hover:bg-white/10 transition">
 
-                <p class="text-sm text-slate-300 mb-4">
-                    Conectado com
-                </p>
+                <i class="fa-regular fa-rectangle-list w-5"></i>
 
-                <div class="space-y-4">
+                <span>Movimentações</span>
 
-                    <div class="flex items-center gap-3">
-                        <i class="fa-solid fa-table-cells-large
-                                  text-green-400 text-xl"></i>
+            </a>
 
-                        <span>Google Planilhas</span>
-                    </div>
 
-                    <div class="flex items-center gap-3">
-                        <i class="fa-solid fa-file-lines
-                                  text-purple-400 text-xl"></i>
+            <a href="configuracoes.html"
+               class="nav-item flex items-center gap-4 px-4 py-3 rounded-lg
+                      hover:bg-white/10 transition">
 
-                        <span>Google Forms</span>
-                    </div>
+                <i class="fa-solid fa-gear w-5"></i>
+
+                <span>Configurações</span>
+
+            </a>
+
+        </nav>
+
+
+        <!-- Integrações -->
+        <div class="mt-auto px-7 pb-7">
+
+            <p class="text-xs text-slate-400 mb-4">
+                Conectado com
+            </p>
+
+
+            <div class="flex items-center gap-3 mb-4">
+
+                <div class="w-8 h-8 bg-green-500 rounded-md
+                            flex items-center justify-center">
+
+                    <i class="fa-solid fa-table-cells text-white"></i>
 
                 </div>
+
+                <span class="text-sm">
+                    Google Planilhas
+                </span>
+
             </div>
 
-        </aside>
+
+            <div class="flex items-center gap-3">
+
+                <div class="w-8 h-8 bg-purple-500 rounded-md
+                            flex items-center justify-center">
+
+                    <i class="fa-solid fa-file-lines text-white"></i>
+
+                </div>
+
+                <span class="text-sm">
+                    Google Forms
+                </span>
+
+            </div>
+
+        </div>
+
+    </aside>
 
 
-        <main class="flex-1">
+    <!-- ===================================================== -->
+    <!-- ÁREA PRINCIPAL -->
+    <!-- ===================================================== -->
 
-            <header
-                class="h-[72px] bg-white border-b border-slate-200
+    <main class="flex-1">
+
+        <!-- HEADER -->
+
+        <header class="h-[72px] bg-white border-b border-slate-200
                        flex items-center justify-end px-8">
 
-                <div
-                    class="w-10 h-10 rounded-full bg-blue-500
-                           text-white flex items-center justify-center
+            <div class="flex items-center gap-5">
+
+                <!-- Notificações -->
+
+                <button
+                    class="relative w-10 h-10 rounded-full
+                           flex items-center justify-center
+                           text-slate-500 hover:bg-slate-100">
+
+                    <i class="fa-regular fa-bell text-xl"></i>
+
+                    <span
+                        class="absolute top-1 right-1 w-2.5 h-2.5
+                               bg-red-500 rounded-full border-2 border-white">
+                    </span>
+
+                </button>
+
+
+                <!-- Perfil -->
+
+                <button
+                    class="w-10 h-10 rounded-full
+                           bg-blue-500 text-white
+                           flex items-center justify-center
                            font-semibold">
 
                     AV
-                </div>
 
-            </header>
+                </button>
+
+            </div>
+
+        </header>
 
 
-            <section class="p-8">
+        <!-- ================================================= -->
+        <!-- CONTEÚDO -->
+        <!-- ================================================= -->
 
-                <div class="mb-7">
+        <section class="p-8">
 
-                    <h1 class="text-3xl font-bold text-slate-900">
+            <!-- Título -->
+
+            <div class="flex items-center justify-between mb-7">
+
+                <div>
+
+                    <h1 class="text-2xl font-bold text-slate-800">
                         Grupos
                     </h1>
 
+                    <p class="text-sm text-slate-500 mt-1">
+                        Gerencie os 21 grupos cadastrados.
+                    </p>
+
                 </div>
 
 
-                
+                <div class="flex items-center gap-4">
 
-            </section>
+                    <!-- Busca -->
 
-        </main>
+                    <div class="relative">
+
+                        <i class="fa-solid fa-magnifying-glass
+                                  absolute left-4 top-1/2
+                                  -translate-y-1/2
+                                  text-slate-400"></i>
+
+                        <input
+                            id="searchInput"
+                            type="text"
+                            placeholder="Buscar grupo..."
+                            class="w-[290px] h-11
+                                   pl-11 pr-4
+                                   rounded-lg
+                                   border border-slate-200
+                                   bg-white
+                                   outline-none
+                                   focus:ring-2
+                                   focus:ring-blue-200">
+
+                    </div>
+
+
+                    <!-- Novo grupo -->
+
+                    <button
+                        onclick="abrirModalGrupo()"
+                        class="h-11 px-5
+                               bg-primary text-white
+                               rounded-lg
+                               flex items-center gap-2
+                               hover:bg-blue-700 transition">
+
+                        <i class="fa-solid fa-plus"></i>
+
+                        Novo grupo
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================================================= -->
+            <!-- TABELA -->
+            <!-- ================================================= -->
+
+            <div class="bg-white rounded-xl
+                        border border-slate-200
+                        overflow-hidden">
+
+                <table class="w-full">
+
+                    <thead class="bg-slate-50 border-b">
+
+                        <tr>
+
+                            <th class="text-left px-5 py-4
+                                       text-sm font-semibold
+                                       text-slate-600">
+
+                                Grupo
+
+                            </th>
+
+                            <th class="text-left px-5 py-4
+                                       text-sm font-semibold
+                                       text-slate-600">
+
+                                Área
+
+                            </th>
+
+                            <th class="text-left px-5 py-4
+                                       text-sm font-semibold
+                                       text-slate-600">
+
+                                Turno
+
+                            </th>
+
+                            <th class="text-left px-5 py-4
+                                       text-sm font-semibold
+                                       text-slate-600">
+
+                                Integrantes
+
+                            </th>
+
+                            <th class="text-left px-5 py-4
+                                       text-sm font-semibold
+                                       text-slate-600">
+
+                                Fotos
+
+                            </th>
+
+                            <th class="text-center px-5 py-4
+                                       text-sm font-semibold
+                                       text-slate-600">
+
+                                Ações
+
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="gruposTable">
+
+                        <!-- GRUPO 1 -->
+
+                        <tr class="grupo-row border-b hover:bg-slate-50">
+
+                            <td class="px-5 py-4">
+
+                                <div class="font-medium text-slate-700">
+                                    Grupo Inovação
+                                </div>
+
+                            </td>
+
+
+                            <td class="px-5 py-4">
+
+                                <span class="px-3 py-1 rounded-full
+                                             bg-blue-100 text-blue-600
+                                             text-xs font-medium">
+
+                                    TI
+
+                                </span>
+
+                            </td>
+
+
+                            <td class="px-5 py-4">
+
+                                <span class="px-3 py-1 rounded-full
+                                             bg-blue-50 text-blue-600
+                                             text-xs font-medium">
+
+                                    ☀ Manhã
+
+                                </span>
+
+                            </td>
+
+
+                            <td class="px-5 py-4">
+
+                                <span class="font-medium">
+                                    5
+                                </span>
+
+                                <span class="text-slate-400">
+                                    /6
+                                </span>
+
+                            </td>
+
+
+                            <!-- FOTOS -->
+
+                            <td class="px-5 py-4">
+
+                                <div class="flex -space-x-2">
+
+                                    <img
+                                        src="https://i.pravatar.cc/100?img=12"
+                                        class="w-8 h-8 rounded-full
+                                               border-2 border-white
+                                               object-cover">
+
+                                    <img
+                                        src="https://i.pravatar.cc/100?img=32"
+                                        class="w-8 h-8 rounded-full
+                                               border-2 border-white
+                                               object-cover">
+
+                                    <img
+                                        src="https://i.pravatar.cc/100?img=45"
+                                        class="w-8 h-8 rounded-full
+                                               border-2 border-white
+                                               object-cover">
+
+                                    <img
+                                        src="https://i.pravatar.cc/100?img=47"
+                                        class="w-8 h-8 rounded-full
+                                               border-2 border-white
+                                               object-cover">
+
+                                    <div
+                                        class="w-8 h-8 rounded-full
+                                               border-2 border-white
+                                               bg-slate-200
+                                               flex items-center justify-center
+                                               text-xs font-medium
+                                               text-slate-600">
+
+                                        +1
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+
+                            <!-- AÇÕES -->
+
+                            <td class="px-5 py-4">
+
+                                <div class="flex justify-center gap-5">
+
+                                    <button
+                                        onclick="editarGrupo('Grupo Inovação')"
+                                        class="text-blue-500
+                                               hover:text-blue-700">
+
+                                        <i class="fa-solid fa-pen"></i>
+
+                                    </button>
+
+
+                                    <button
+                                        onclick="visualizarGrupo('Grupo Inovação')"
+                                        class="text-slate-500
+                                               hover:text-slate-700">
+
+                                        <i class="fa-solid fa-eye"></i>
+
+                                    </button>
+
+
+                                    <button
+                                        class="text-slate-500
+                                               hover:text-slate-700">
+
+                                        <i class="fa-solid fa-ellipsis-vertical"></i>
+
+                                    </button>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+
+                        <!-- GRUPO 2 -->
+
+                        <tr class="grupo-row border-b hover:bg-slate-50">
+
+                            <td class="px-5 py-4">
+                                <div class="font-medium">
+                                    Grupo Zelseg
+                                </div>
+                            </td>
+
+                            <td class="px-5 py-4">
+
+                                <span class="px-3 py-1 rounded-full
+                                             bg-green-100 text-green-600
+                                             text-xs">
+
+                                    Produção
+
+                                </span>
+
+                            </td>
+
+                            <td class="px-5 py-4">
+
+                                <span class="px-3 py-1 rounded-full
+                                             bg-indigo-100 text-indigo-600
+                                             text-xs">
+
+                                    ☁ Tarde
+
+                                </span>
+
+                            </td>
+
+                            <td class="px-5 py-4">
+                                <span class="font-medium">4</span>
+                                <span class="text-slate-400">/5</span>
+                            </td>
+
+                            <td class="px-5 py-4">
+
+                                <div class="flex -space-x-2">
+
+                                    <img
+                                        src="https://i.pravatar.cc/100?img=5"
+                                        class="w-8 h-8 rounded-full border-2 border-white">
+
+                                    <img
+                                        src="https://i.pravatar.cc/100?img=14"
+                                        class="w-8 h-8 rounded-full border-2 border-white">
+
+                                    <img
+                                        src="https://i.pravatar.cc/100?img=21"
+                                        class="w-8 h-8 rounded-full border-2 border-white">
+
+                                    <img
+                                        src="https://i.pravatar.cc/100?img=25"
+                                        class="w-8 h-8 rounded-full border-2 border-white">
+
+                                </div>
+
+                            </td>
+
+                            <td class="px-5 py-4">
+
+                                <div class="flex justify-center gap-5">
+
+                                    <button
+                                        onclick="editarGrupo('Grupo Zelseg')"
+                                        class="text-blue-500">
+
+                                        <i class="fa-solid fa-pen"></i>
+
+                                    </button>
+
+                                    <button
+                                        onclick="visualizarGrupo('Grupo Zelseg')"
+                                        class="text-slate-500">
+
+                                        <i class="fa-solid fa-eye"></i>
+
+                                    </button>
+
+                                    <button class="text-slate-500">
+
+                                        <i class="fa-solid fa-ellipsis-vertical"></i>
+
+                                    </button>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+
+                        <!-- GRUPO 3 -->
+
+                        <tr class="grupo-row border-b hover:bg-slate-50">
+
+                            <td class="px-5 py-4">
+                                <div class="font-medium">
+                                    Grupo Evolução
+                                </div>
+                            </td>
+
+                            <td class="px-5 py-4">
+
+                                <span class="px-3 py-1 rounded-full
+                                             bg-purple-100 text-purple-600 text-xs">
+
+                                    Qualidade
+
+                                </span>
+
+                            </td>
+
+                            <td class="px-5 py-4">
+
+                                <span class="px-3 py-1 rounded-full
+                                             bg-blue-100 text-blue-600 text-xs">
+
+                                    🌙 Noite
+
+                                </span>
+
+                            </td>
+
+                            <td class="px-5 py-4">
+
+                                <span class="font-medium">6</span>
+                                <span class="text-slate-400">/6</span>
+
+                            </td>
+
+                            <td class="px-5 py-4">
+
+                                <div class="flex -space-x-2">
+
+                                    <img
+                                        src="https://i.pravatar.cc/100?img=11"
+                                        class="w-8 h-8 rounded-full border-2 border-white">
+
+                                    <img
+                                        src="https://i.pravatar.cc/100?img=18"
+                                        class="w-8 h-8 rounded-full border-2 border-white">
+
+                                    <img
+                                        src="https://i.pravatar.cc/100?img=28"
+                                        class="w-8 h-8 rounded-full border-2 border-white">
+
+                                    <div
+                                        class="w-8 h-8 rounded-full
+                                               bg-slate-200
+                                               border-2 border-white
+                                               flex items-center justify-center
+                                               text-xs">
+
+                                        +3
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+                            <td class="px-5 py-4">
+
+                                <div class="flex justify-center gap-5">
+
+                                    <button
+                                        onclick="editarGrupo('Grupo Evolução')"
+                                        class="text-blue-500">
+
+                                        <i class="fa-solid fa-pen"></i>
+
+                                    </button>
+
+                                    <button
+                                        onclick="visualizarGrupo('Grupo Evolução')"
+                                        class="text-slate-500">
+
+                                        <i class="fa-solid fa-eye"></i>
+
+                                    </button>
+
+                                    <button class="text-slate-500">
+
+                                        <i class="fa-solid fa-ellipsis-vertical"></i>
+
+                                    </button>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+
+                        <!-- GRUPO 4 -->
+
+                        <tr class="grupo-row border-b hover:bg-slate-50">
+
+                            <td class="px-5 py-4">
+                                <div class="font-medium">
+                                    Grupo Tesla
+                                </div>
+                            </td>
+
+                            <td class="px-5 py-4">
+
+                                <span class="px-3 py-1 rounded-full
+                                             bg-orange-100 text-orange-600 text-xs">
+
+                                    Logística
+
+                                </span>
+
+                            </td>
+
+                            <td class="px-5 py-4">
+
+                                <span class="px-3 py-1 rounded-full
+                                             bg-blue-100 text-blue-600 text-xs">
+
+                                    ☀ Manhã
+
+                                </span>
+
+                            </td>
+
+                            <td class="px-5 py-4">
+                                <span class="font-medium">3</span>
+                                <span class="text-slate-400">/5</span>
+                            </td>
+
+                            <td class="px-5 py-4">
+
+                                <div class="flex -space-x-2">
+
+                                    <img
+                                        src="https://i.pravatar.cc/100?img=33"
+                                        class="w-8 h-8 rounded-full border-2 border-white">
+
+                                    <img
+                                        src="https://i.pravatar.cc/100?img=44"
+                                        class="w-8 h-8 rounded-full border-2 border-white">
+
+                                    <img
+                                        src="https://i.pravatar.cc/100?img=48"
+                                        class="w-8 h-8 rounded-full border-2 border-white">
+
+                                </div>
+
+                            </td>
+
+                            <td class="px-5 py-4">
+
+                                <div class="flex justify-center gap-5">
+
+                                    <button
+                                        onclick="editarGrupo('Grupo Tesla')"
+                                        class="text-blue-500">
+
+                                        <i class="fa-solid fa-pen"></i>
+
+                                    </button>
+
+                                    <button
+                                        onclick="visualizarGrupo('Grupo Tesla')"
+                                        class="text-slate-500">
+
+                                        <i class="fa-solid fa-eye"></i>
+
+                                    </button>
+
+                                    <button class="text-slate-500">
+
+                                        <i class="fa-solid fa-ellipsis-vertical"></i>
+
+                                    </button>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+
+<!-- ========================================================= -->
+<!-- MODAL DE EDIÇÃO DO GRUPO -->
+<!-- ========================================================= -->
+
+<div
+    id="modalGrupo"
+    class="hidden fixed inset-0 bg-black/40
+           flex items-center justify-center z-50">
+
+    <div class="bg-white rounded-2xl
+                w-[650px]
+                max-h-[90vh]
+                overflow-y-auto
+                shadow-2xl">
+
+        <!-- Cabeçalho -->
+
+        <div class="flex items-center justify-between
+                    px-7 py-5 border-b">
+
+            <div>
+
+                <h2
+                    id="modalTitulo"
+                    class="text-xl font-semibold text-slate-800">
+
+                    Editar grupo
+
+                </h2>
+
+                <p class="text-sm text-slate-500 mt-1">
+                    Altere os dados do grupo e seus integrantes.
+                </p>
+
+            </div>
+
+
+            <button
+                onclick="fecharModalGrupo()"
+                class="w-9 h-9 rounded-full
+                       hover:bg-slate-100
+                       flex items-center justify-center">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+
+        <!-- Conteúdo -->
+
+        <div class="p-7 space-y-6">
+
+            <!-- DADOS DO GRUPO -->
+
+            <div>
+
+                <h3 class="font-semibold text-slate-800 mb-4">
+                    Dados do grupo
+                </h3>
+
+
+                <div class="grid grid-cols-2 gap-4">
+
+                    <div>
+
+                        <label class="text-sm font-medium">
+                            Nome do grupo
+                        </label>
+
+                        <input
+                            id="grupoNome"
+                            type="text"
+                            class="mt-2 w-full h-11
+                                   border border-slate-200
+                                   rounded-lg px-4
+                                   outline-none
+                                   focus:ring-2
+                                   focus:ring-blue-200">
+
+                    </div>
+
+
+                    <div>
+
+                        <label class="text-sm font-medium">
+                            Área
+                        </label>
+
+                        <select
+                            class="mt-2 w-full h-11
+                                   border border-slate-200
+                                   rounded-lg px-4">
+
+                            <option>TI</option>
+                            <option>Produção</option>
+                            <option>Qualidade</option>
+                            <option>Logística</option>
+                            <option>Manutenção</option>
+                            <option>Administrativo</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div>
+
+                        <label class="text-sm font-medium">
+                            Turno
+                        </label>
+
+                        <select
+                            class="mt-2 w-full h-11
+                                   border border-slate-200
+                                   rounded-lg px-4">
+
+                            <option>Manhã</option>
+                            <option>Tarde</option>
+                            <option>Noite</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div>
+
+                        <label class="text-sm font-medium">
+                            Limite de integrantes
+                        </label>
+
+                        <input
+                            type="number"
+                            value="6"
+                            class="mt-2 w-full h-11
+                                   border border-slate-200
+                                   rounded-lg px-4">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- INTEGRANTES -->
+
+            <div>
+
+                <div class="flex items-center justify-between mb-4">
+
+                    <h3 class="font-semibold text-slate-800">
+                        Integrantes
+                    </h3>
+
+                    <button
+                        onclick="abrirModalIntegrante()"
+                        class="text-sm text-primary
+                               font-medium hover:underline">
+
+                        <i class="fa-solid fa-plus mr-1"></i>
+
+                        Adicionar integrante
+
+                    </button>
+
+                </div>
+
+
+                <!-- Integrante -->
+
+                <div
+                    class="flex items-center gap-4
+                           p-4 border rounded-xl
+                           hover:bg-slate-50">
+
+                    <img
+                        src="https://i.pravatar.cc/100?img=12"
+                        class="w-12 h-12 rounded-full object-cover">
+
+
+                    <div class="flex-1">
+
+                        <p class="font-medium text-slate-800">
+                            Ana Vitória
+                        </p>
+
+                        <p class="text-sm text-slate-500">
+                            Matrícula: 12345
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        onclick="editarIntegrante('Ana Vitória')"
+                        class="text-blue-500
+                               hover:text-blue-700">
+
+                        <i class="fa-solid fa-pen"></i>
+
+                    </button>
+
+
+                    <button
+                        class="text-red-400
+                               hover:text-red-600">
+
+                        <i class="fa-solid fa-trash"></i>
+
+                    </button>
+
+                </div>
+
+
+                <!-- Integrante -->
+
+                <div
+                    class="flex items-center gap-4
+                           p-4 border rounded-xl mt-3">
+
+                    <img
+                        src="https://i.pravatar.cc/100?img=32"
+                        class="w-12 h-12 rounded-full object-cover">
+
+
+                    <div class="flex-1">
+
+                        <p class="font-medium text-slate-800">
+                            João Silva
+                        </p>
+
+                        <p class="text-sm text-slate-500">
+                            Matrícula: 14582
+                        </p>
+
+                    </div>
+
+
+                    <button class="text-blue-500">
+                        <i class="fa-solid fa-pen"></i>
+                    </button>
+
+                    <button class="text-red-400">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Rodapé -->
+
+        <div
+            class="px-7 py-5 border-t
+                   flex justify-end gap-3">
+
+            <button
+                onclick="fecharModalGrupo()"
+                class="px-5 py-2.5
+                       rounded-lg
+                       border border-slate-200
+                       hover:bg-slate-50">
+
+                Cancelar
+
+            </button>
+
+
+            <button
+                onclick="salvarGrupo()"
+                class="px-5 py-2.5
+                       rounded-lg
+                       bg-primary text-white
+                       hover:bg-blue-700">
+
+                Salvar alterações
+
+            </button>
+
+        </div>
 
     </div>
-<script src="../script.js"></script>
+
+</div>
+
+
+
+<!-- ========================================================= -->
+<!-- MODAL INTEGRANTE -->
+<!-- ========================================================= -->
+
+<div
+    id="modalIntegrante"
+    class="hidden fixed inset-0 bg-black/40
+           flex items-center justify-center z-[60]">
+
+    <div class="bg-white rounded-2xl
+                w-[500px] shadow-2xl">
+
+        <div
+            class="px-7 py-5 border-b
+                   flex justify-between items-center">
+
+            <h2 class="text-xl font-semibold">
+                Dados do integrante
+            </h2>
+
+            <button
+                onclick="fecharModalIntegrante()">
+
+                <i class="fa-solid fa-xmark text-slate-500"></i>
+
+            </button>
+
+        </div>
+
+
+        <div class="p-7 space-y-5">
+
+            <!-- FOTO -->
+
+            <div class="flex flex-col items-center">
+
+                <div
+                    class="relative">
+
+                    <img
+                        id="previewFoto"
+                        src="https://i.pravatar.cc/100?img=12"
+                        class="w-24 h-24 rounded-full
+                               object-cover border-4
+                               border-slate-100">
+
+
+                    <label
+                        for="fotoInput"
+                        class="absolute bottom-0 right-0
+                               w-8 h-8 rounded-full
+                               bg-primary text-white
+                               flex items-center justify-center
+                               cursor-pointer
+                               border-2 border-white">
+
+                        <i class="fa-solid fa-camera text-xs"></i>
+
+                    </label>
+
+                    <input
+                        id="fotoInput"
+                        type="file"
+                        accept="image/*"
+                        class="hidden">
+
+                </div>
+
+
+                <p class="text-xs text-slate-400 mt-2">
+                    Clique na câmera para alterar a foto
+                </p>
+
+            </div>
+
+
+            <!-- NOME -->
+
+            <div>
+
+                <label class="text-sm font-medium">
+                    Nome completo
+                </label>
+
+                <input
+                    type="text"
+                    value="Ana Vitória"
+                    class="mt-2 w-full h-11
+                           border border-slate-200
+                           rounded-lg px-4">
+
+            </div>
+
+
+            <!-- MATRÍCULA -->
+
+            <div>
+
+                <label class="text-sm font-medium">
+                    Matrícula
+                </label>
+
+                <input
+                    type="text"
+                    value="12345"
+                    class="mt-2 w-full h-11
+                           border border-slate-200
+                           rounded-lg px-4">
+
+            </div>
+
+
+            <!-- EMAIL -->
+
+            <div>
+
+                <label class="text-sm font-medium">
+                    E-mail
+                </label>
+
+                <input
+                    type="email"
+                    value="ana@empresa.com"
+                    class="mt-2 w-full h-11
+                           border border-slate-200
+                           rounded-lg px-4">
+
+            </div>
+
+
+            <!-- ÁREA -->
+
+            <div>
+
+                <label class="text-sm font-medium">
+                    Área
+                </label>
+
+                <input
+                    type="text"
+                    value="TI"
+                    class="mt-2 w-full h-11
+                           border border-slate-200
+                           rounded-lg px-4">
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="px-7 py-5 border-t
+                   flex justify-end gap-3">
+
+            <button
+                onclick="fecharModalIntegrante()"
+                class="px-5 py-2.5
+                       rounded-lg
+                       border">
+
+                Cancelar
+
+            </button>
+
+
+            <button
+                class="px-5 py-2.5
+                       rounded-lg
+                       bg-primary text-white">
+
+                Salvar
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ========================================================= -->
+<!-- JAVASCRIPT -->
+<!-- ========================================================= -->
+
+<script>
+
+    /* ==========================================
+       MODAL GRUPO
+    ========================================== */
+
+    function abrirModalGrupo() {
+
+        document
+            .getElementById("modalGrupo")
+            .classList.remove("hidden");
+
+        document
+            .getElementById("modalTitulo")
+            .textContent = "Novo grupo";
+
+        document
+            .getElementById("grupoNome")
+            .value = "";
+
+    }
+
+
+    function editarGrupo(nome) {
+
+        document
+            .getElementById("modalGrupo")
+            .classList.remove("hidden");
+
+        document
+            .getElementById("modalTitulo")
+            .textContent = "Editar grupo";
+
+        document
+            .getElementById("grupoNome")
+            .value = nome;
+
+    }
+
+
+    function fecharModalGrupo() {
+
+        document
+            .getElementById("modalGrupo")
+            .classList.add("hidden");
+
+    }
+
+
+    function salvarGrupo() {
+
+        alert("Grupo salvo com sucesso!");
+
+        fecharModalGrupo();
+
+    }
+
+
+    /* ==========================================
+       MODAL INTEGRANTE
+    ========================================== */
+
+    function abrirModalIntegrante() {
+
+        document
+            .getElementById("modalIntegrante")
+            .classList.remove("hidden");
+
+    }
+
+
+    function editarIntegrante(nome) {
+
+        document
+            .getElementById("modalIntegrante")
+            .classList.remove("hidden");
+
+    }
+
+
+    function fecharModalIntegrante() {
+
+        document
+            .getElementById("modalIntegrante")
+            .classList.add("hidden");
+
+    }
+
+
+    /* ==========================================
+       PREVIEW DA FOTO
+    ========================================== */
+
+    document
+        .getElementById("fotoInput")
+        .addEventListener("change", function(event) {
+
+            const arquivo = event.target.files[0];
+
+            if (!arquivo) return;
+
+            const leitor = new FileReader();
+
+            leitor.onload = function(e) {
+
+                document
+                    .getElementById("previewFoto")
+                    .src = e.target.result;
+
+            };
+
+            leitor.readAsDataURL(arquivo);
+
+        });
+
+
+    /* ==========================================
+       VISUALIZAR GRUPO
+    ========================================== */
+
+    function visualizarGrupo(nome) {
+
+        editarGrupo(nome);
+
+    }
+
+
+    /* ==========================================
+       BUSCA
+    ========================================== */
+
+    document
+        .getElementById("searchInput")
+        .addEventListener("input", function() {
+
+            const termo =
+                this.value.toLowerCase();
+
+            const grupos =
+                document.querySelectorAll(".grupo-row");
+
+            grupos.forEach(function(grupo) {
+
+                const texto =
+                    grupo.innerText.toLowerCase();
+
+                if (texto.includes(termo)) {
+
+                    grupo.style.display = "";
+
+                } else {
+
+                    grupo.style.display = "none";
+
+                }
+
+            });
+
+        });
+
+</script>
+
 </body>
 </html>
