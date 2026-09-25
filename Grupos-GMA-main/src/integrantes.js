@@ -1,4 +1,14 @@
-const URL_API = 'COLE_AQUI_A_URL_DO_SEU_WEB_APP';
+// =====================================================
+// CONFIGURAÇÃO
+// =====================================================
+
+const URL_API =
+    'https://script.google.com/macros/s/AKfycbzCnf2jD4DO8UR5_lakqA_gtbRsjhWFeyZC92HAE9Q/dev';
+
+
+// =====================================================
+// ELEMENTOS DO HTML
+// =====================================================
 
 const modal = document.getElementById('modalIntegrante');
 const form = document.getElementById('formIntegrante');
@@ -13,9 +23,19 @@ const tabela = document.getElementById('tabelaIntegrantes');
 const busca = document.getElementById('buscarIntegrante');
 
 
+// =====================================================
+// VARIÁVEIS
+// =====================================================
+
 let integranteAtual = null;
 let dadosOriginais = {};
 
+let todosIntegrantes = [];
+
+
+// =====================================================
+// CAMPOS EDITÁVEIS
+// =====================================================
 
 const campos = [
     'nome',
@@ -31,48 +51,136 @@ const campos = [
 ];
 
 
+// =====================================================
+// INICIALIZAÇÃO
+// =====================================================
+
 document.addEventListener('DOMContentLoaded', () => {
+
+    console.log('Integrantes.js carregado.');
 
     carregarIntegrantes();
 
 });
 
 
+// =====================================================
+// CARREGAR INTEGRANTES
+// =====================================================
+
 async function carregarIntegrantes() {
 
     try {
 
+        console.log('Buscando integrantes...');
+
         tabela.innerHTML = `
             <tr>
-                <td colspan="8" class="px-5 py-8 text-center text-slate-500">
+                <td
+                    colspan="8"
+                    class="px-5 py-8 text-center text-slate-500"
+                >
                     Carregando integrantes...
                 </td>
             </tr>
         `;
 
-        const resposta = await fetch(
-            `${URL_API}?acao=buscarIntegrantes`
+
+        const url =
+            `${URL_API}?acao=buscarIntegrantes`;
+
+
+        console.log('URL da API:', url);
+
+
+        const resposta =
+            await fetch(url);
+
+
+        console.log(
+            'Status da resposta:',
+            resposta.status
         );
 
-        const integrantes = await resposta.json();
 
-        if (!Array.isArray(integrantes)) {
+        if (!resposta.ok) {
 
             throw new Error(
-                integrantes.mensagem || 'Erro ao buscar integrantes.'
+                `Erro HTTP: ${resposta.status}`
             );
 
         }
 
-        renderizarTabela(integrantes);
+
+        const texto =
+            await resposta.text();
+
+
+        console.log(
+            'Resposta do Apps Script:',
+            texto
+        );
+
+
+        let integrantes;
+
+        try {
+
+            integrantes =
+                JSON.parse(texto);
+
+        } catch (erroJSON) {
+
+            console.error(
+                'Resposta não é um JSON válido:',
+                texto
+            );
+
+            throw new Error(
+                'O Apps Script não retornou um JSON válido.'
+            );
+
+        }
+
+
+        console.log(
+            'Integrantes recebidos:',
+            integrantes
+        );
+
+
+        if (!Array.isArray(integrantes)) {
+
+            throw new Error(
+                integrantes.mensagem ||
+                'Erro ao buscar integrantes.'
+            );
+
+        }
+
+
+        todosIntegrantes = integrantes;
+
+
+        renderizarTabela(
+            todosIntegrantes
+        );
+
 
     } catch (erro) {
 
-        console.error(erro);
+        console.error(
+            'ERRO AO CARREGAR INTEGRANTES:',
+            erro
+        );
+
 
         tabela.innerHTML = `
             <tr>
-                <td colspan="8" class="px-5 py-8 text-center text-red-500">
+                <td
+                    colspan="8"
+                    class="px-5 py-8 text-center text-red-500"
+                >
                     Erro ao carregar integrantes.
                 </td>
             </tr>
@@ -83,27 +191,38 @@ async function carregarIntegrantes() {
 }
 
 
+// =====================================================
+// RENDERIZAR TABELA
+// =====================================================
+
 function renderizarTabela(integrantes) {
 
     tabela.innerHTML = '';
 
-    if (integrantes.length === 0) {
+
+    if (!integrantes || integrantes.length === 0) {
 
         tabela.innerHTML = `
             <tr>
-                <td colspan="8" class="px-5 py-8 text-center text-slate-500">
+                <td
+                    colspan="8"
+                    class="px-5 py-8 text-center text-slate-500"
+                >
                     Nenhum integrante encontrado.
                 </td>
             </tr>
         `;
 
         return;
+
     }
 
 
     integrantes.forEach(integrante => {
 
-        const tr = document.createElement('tr');
+        const tr =
+            document.createElement('tr');
+
 
         tr.className =
             'border-b border-slate-100 hover:bg-slate-50 transition cursor-pointer';
@@ -144,21 +263,26 @@ function renderizarTabela(integrantes) {
                 <button
                     type="button"
                     class="btnAbrirIntegrante w-9 h-9 rounded-lg
-                           hover:bg-slate-100 text-slate-500">
+                           hover:bg-slate-100 text-slate-500"
+                >
 
                     <i class="fa-solid fa-chevron-right"></i>
 
                 </button>
 
             </td>
+
         `;
 
 
-        tr.addEventListener('click', () => {
+        tr.addEventListener(
+            'click',
+            () => {
 
-            abrirModal(integrante);
+                abrirModal(integrante);
 
-        });
+            }
+        );
 
 
         tabela.appendChild(tr);
@@ -168,26 +292,36 @@ function renderizarTabela(integrantes) {
 }
 
 
+// =====================================================
+// ABRIR MODAL
+// =====================================================
+
 function abrirModal(integrante) {
 
-    integranteAtual = { ...integrante };
+    integranteAtual =
+        { ...integrante };
+
 
     dadosOriginais = {};
+
 
     campos.forEach(campo => {
 
         dadosOriginais[campo] =
-            normalizarValor(integrante[campo]);
+            normalizarValor(
+                integrante[campo]
+            );
 
     });
 
 
-
     campos.forEach(campo => {
 
-        const elemento = document.querySelector(
-            `[name="${campo}"]`
-        );
+        const elemento =
+            document.querySelector(
+                `[name="${campo}"]`
+            );
+
 
         if (elemento) {
 
@@ -199,274 +333,459 @@ function abrirModal(integrante) {
     });
 
 
-    document.getElementById('modalNome').textContent =
-        integrante.nome || 'Integrante';
-
-    document.getElementById('modalGrupo').textContent =
-        integrante.grupo || '';
+    const modalNome =
+        document.getElementById('modalNome');
 
 
-    const foto = document.getElementById('modalFoto');
+    if (modalNome) {
 
-    if (integrante.foto) {
+        modalNome.textContent =
+            integrante.nome ||
+            'Integrante';
 
-        foto.src = integrante.foto;
+    }
 
-    } else {
 
-        foto.src =
-            'https://ui-avatars.com/api/?name=' +
-            encodeURIComponent(integrante.nome || 'Integrante') +
-            '&background=random&color=fff';
+    const modalGrupo =
+        document.getElementById('modalGrupo');
+
+
+    if (modalGrupo) {
+
+        modalGrupo.textContent =
+            integrante.grupo || '';
+
+    }
+
+
+    const foto =
+        document.getElementById('modalFoto');
+
+
+    if (foto) {
+
+        if (integrante.foto) {
+
+            foto.src =
+                integrante.foto;
+
+        } else {
+
+            foto.src =
+                'https://ui-avatars.com/api/?name=' +
+                encodeURIComponent(
+                    integrante.nome ||
+                    'Integrante'
+                ) +
+                '&background=random&color=fff';
+
+        }
 
     }
 
 
     sairModoEdicao();
+
 
     modal.classList.remove('hidden');
     modal.classList.add('flex');
 
 }
 
-btnEditar.addEventListener('click', () => {
 
-    entrarModoEdicao();
-
-});
-
+// =====================================================
+// ENTRAR EM MODO DE EDIÇÃO
+// =====================================================
 
 function entrarModoEdicao() {
 
     campos.forEach(campo => {
 
-        const elemento = document.querySelector(
-            `[name="${campo}"]`
-        );
+        const elemento =
+            document.querySelector(
+                `[name="${campo}"]`
+            );
+
 
         if (elemento) {
 
-            elemento.disabled = false;
+            elemento.disabled =
+                false;
 
-            elemento.classList.remove('bg-slate-50');
+            elemento.classList.remove(
+                'bg-slate-50'
+            );
 
-            elemento.classList.add('bg-white');
+            elemento.classList.add(
+                'bg-white'
+            );
 
         }
 
     });
 
 
-    btnEditar.classList.add('hidden');
-    btnSalvar.classList.remove('hidden');
-    btnCancelar.classList.remove('hidden');
+    btnEditar.classList.add(
+        'hidden'
+    );
 
-    btnFechar.classList.add('hidden');
+    btnSalvar.classList.remove(
+        'hidden'
+    );
+
+    btnCancelar.classList.remove(
+        'hidden'
+    );
+
+    btnFechar.classList.add(
+        'hidden'
+    );
 
 }
 
-btnCancelar.addEventListener('click', () => {
 
-    campos.forEach(campo => {
-
-        const elemento = document.querySelector(
-            `[name="${campo}"]`
-        );
-
-        if (elemento) {
-
-            elemento.value =
-                dadosOriginais[campo] ?? '';
-
-        }
-
-    });
-
-
-    sairModoEdicao();
-
-});
-
+// =====================================================
+// SAIR DO MODO DE EDIÇÃO
+// =====================================================
 
 function sairModoEdicao() {
 
     campos.forEach(campo => {
 
-        const elemento = document.querySelector(
-            `[name="${campo}"]`
-        );
+        const elemento =
+            document.querySelector(
+                `[name="${campo}"]`
+            );
+
 
         if (elemento) {
 
-            elemento.disabled = true;
+            elemento.disabled =
+                true;
 
-            elemento.classList.remove('bg-white');
+            elemento.classList.remove(
+                'bg-white'
+            );
 
-            elemento.classList.add('bg-slate-50');
-
-        }
-
-    });
-
-
-    btnEditar.classList.remove('hidden');
-    btnSalvar.classList.add('hidden');
-    btnCancelar.classList.add('hidden');
-
-    btnFechar.classList.remove('hidden');
-
-}
-
-  
-form.addEventListener('submit', async (event) => {
-
-    event.preventDefault();
-
-
-    const alteracoes = {};
-
-
-    campos.forEach(campo => {
-
-        const elemento = document.querySelector(
-            `[name="${campo}"]`
-        );
-
-        if (!elemento) {
-            return;
-        }
-
-
-        const valorAtual =
-            normalizarValor(elemento.value);
-
-        const valorOriginal =
-            normalizarValor(dadosOriginais[campo]);
-
-
-        if (valorAtual !== valorOriginal) {
-
-            alteracoes[campo] =
-                elemento.value.trim();
-
-        }
-
-    });
-
-
-    // Nenhuma alteração
-
-    if (Object.keys(alteracoes).length === 0) {
-
-        alert('Nenhuma alteração foi realizada.');
-
-        return;
-
-    }
-
-
-    // Desabilita botão enquanto salva
-
-    btnSalvar.disabled = true;
-
-    btnSalvar.innerHTML = `
-        <i class="fa-solid fa-spinner fa-spin mr-2"></i>
-        Salvando...
-    `;
-
-
-    try {
-
-        const resposta = await fetch(URL_API, {
-
-            method: 'POST',
-
-            headers: {
-                'Content-Type': 'text/plain;charset=utf-8'
-            },
-
-            body: JSON.stringify({
-
-                acao: 'atualizarIntegrante',
-
-                id: integranteAtual.id,
-
-                alteracoes: alteracoes
-
-            })
-
-        });
-
-
-        const resultado = await resposta.json();
-
-
-        if (!resultado.sucesso) {
-
-            throw new Error(
-                resultado.mensagem ||
-                'Não foi possível atualizar o integrante.'
+            elemento.classList.add(
+                'bg-slate-50'
             );
 
         }
 
-
-        alert('Integrante atualizado com sucesso!');
-
-
-        fecharModal();
-
-        carregarIntegrantes();
+    });
 
 
-    } catch (erro) {
+    btnEditar.classList.remove(
+        'hidden'
+    );
 
-        console.error(erro);
+    btnSalvar.classList.add(
+        'hidden'
+    );
 
-        alert(
-            'Erro ao salvar as alterações:\n' +
-            erro.message
-        );
+    btnCancelar.classList.add(
+        'hidden'
+    );
 
-    } finally {
+    btnFechar.classList.remove(
+        'hidden'
+    );
 
-        btnSalvar.disabled = false;
+}
 
-        btnSalvar.innerHTML = `
-            <i class="fa-solid fa-check mr-2"></i>
-            Salvar alterações
-        `;
+
+// =====================================================
+// EDITAR
+// =====================================================
+
+btnEditar.addEventListener(
+    'click',
+    () => {
+
+        entrarModoEdicao();
 
     }
+);
 
-});
+
+// =====================================================
+// CANCELAR EDIÇÃO
+// =====================================================
+
+btnCancelar.addEventListener(
+    'click',
+    () => {
+
+        campos.forEach(campo => {
+
+            const elemento =
+                document.querySelector(
+                    `[name="${campo}"]`
+                );
+
+
+            if (elemento) {
+
+                elemento.value =
+                    dadosOriginais[campo] ?? '';
+
+            }
+
+        });
+
+
+        sairModoEdicao();
+
+    }
+);
+
+
+// =====================================================
+// SALVAR ALTERAÇÕES
+// =====================================================
+
+form.addEventListener(
+    'submit',
+    async event => {
+
+        event.preventDefault();
+
+
+        const alteracoes = {};
+
+
+        campos.forEach(campo => {
+
+            const elemento =
+                document.querySelector(
+                    `[name="${campo}"]`
+                );
+
+
+            if (!elemento) {
+
+                return;
+
+            }
+
+
+            const valorAtual =
+                normalizarValor(
+                    elemento.value
+                );
+
+
+            const valorOriginal =
+                normalizarValor(
+                    dadosOriginais[campo]
+                );
+
+
+            if (
+                valorAtual !==
+                valorOriginal
+            ) {
+
+                alteracoes[campo] =
+                    elemento.value.trim();
+
+            }
+
+        });
+
+
+        // ---------------------------------------------
+        // NENHUMA ALTERAÇÃO
+        // ---------------------------------------------
+
+        if (
+            Object.keys(alteracoes).length === 0
+        ) {
+
+            alert(
+                'Nenhuma alteração foi realizada.'
+            );
+
+            return;
+
+        }
+
+
+        // ---------------------------------------------
+        // DESABILITAR BOTÃO
+        // ---------------------------------------------
+
+        btnSalvar.disabled =
+            true;
+
+
+        btnSalvar.innerHTML = `
+            <i class="fa-solid fa-spinner fa-spin mr-2"></i>
+            Salvando...
+        `;
+
+
+        try {
+
+            console.log(
+                'Enviando alterações:',
+                alteracoes
+            );
+
+
+            const resposta =
+                await fetch(
+                    URL_API,
+                    {
+
+                        method: 'POST',
+
+                        headers: {
+
+                            'Content-Type':
+                                'text/plain;charset=utf-8'
+
+                        },
+
+                        body:
+                            JSON.stringify({
+
+                                acao:
+                                    'atualizarIntegrante',
+
+                                id:
+                                    integranteAtual.id,
+
+                                alteracoes:
+                                    alteracoes
+
+                            })
+
+                    }
+                );
+
+
+            const texto =
+                await resposta.text();
+
+
+            console.log(
+                'Resposta do servidor:',
+                texto
+            );
+
+
+            let resultado;
+
+
+            try {
+
+                resultado =
+                    JSON.parse(texto);
+
+            } catch (erroJSON) {
+
+                throw new Error(
+                    'O Apps Script não retornou um JSON válido.'
+                );
+
+            }
+
+
+            if (!resultado.sucesso) {
+
+                throw new Error(
+                    resultado.mensagem ||
+                    'Não foi possível atualizar o integrante.'
+                );
+
+            }
+
+
+            alert(
+                'Integrante atualizado com sucesso!'
+            );
+
+
+            fecharModal();
+
+
+            await carregarIntegrantes();
+
+
+        } catch (erro) {
+
+            console.error(
+                'Erro ao salvar:',
+                erro
+            );
+
+
+            alert(
+                'Erro ao salvar as alterações:\n' +
+                erro.message
+            );
+
+
+        } finally {
+
+            btnSalvar.disabled =
+                false;
+
+
+            btnSalvar.innerHTML = `
+                <i class="fa-solid fa-check mr-2"></i>
+                Salvar alterações
+            `;
+
+        }
+
+    }
+);
 
 
 // =====================================================
 // FECHAR MODAL
 // =====================================================
 
-btnFechar.addEventListener('click', () => {
+btnFechar.addEventListener(
+    'click',
+    () => {
 
-    fecharModal();
+        fecharModal();
 
-});
+    }
+);
 
 
-btnFecharX.addEventListener('click', () => {
+btnFecharX.addEventListener(
+    'click',
+    () => {
 
-    fecharModal();
+        fecharModal();
 
-});
+    }
+);
 
 
 function fecharModal() {
 
-    modal.classList.add('hidden');
-    modal.classList.remove('flex');
+    modal.classList.add(
+        'hidden'
+    );
 
-    integranteAtual = null;
-    dadosOriginais = {};
+    modal.classList.remove(
+        'flex'
+    );
+
+
+    integranteAtual =
+        null;
+
+
+    dadosOriginais =
+        {};
 
 }
 
@@ -475,33 +794,54 @@ function fecharModal() {
 // BUSCA
 // =====================================================
 
-busca.addEventListener('input', () => {
+busca.addEventListener(
+    'input',
+    () => {
 
-    const termo =
-        busca.value.toLowerCase().trim();
+        const termo =
+            busca.value
+                .toLowerCase()
+                .trim();
 
-    const linhas =
-        tabela.querySelectorAll('tr');
+
+        const resultado =
+            todosIntegrantes.filter(
+                integrante => {
+
+                    const texto =
+                        [
+
+                            integrante.nome,
+                            integrante.matricula,
+                            integrante.grupo,
+                            integrante.email,
+                            integrante.funcao,
+                            integrante.area,
+                            integrante.turno
+
+                        ]
+                        .map(valor =>
+                            String(
+                                valor ?? ''
+                            ).toLowerCase()
+                        )
+                        .join(' ');
 
 
-    linhas.forEach(linha => {
+                    return texto.includes(
+                        termo
+                    );
 
-        const texto =
-            linha.textContent.toLowerCase();
+                }
+            );
 
-        if (texto.includes(termo)) {
 
-            linha.style.display = '';
+        renderizarTabela(
+            resultado
+        );
 
-        } else {
-
-            linha.style.display = 'none';
-
-        }
-
-    });
-
-});
+    }
+);
 
 
 // =====================================================
@@ -510,11 +850,15 @@ busca.addEventListener('input', () => {
 
 function normalizarValor(valor) {
 
-    if (valor === null || valor === undefined) {
+    if (
+        valor === null ||
+        valor === undefined
+    ) {
 
         return '';
 
     }
+
 
     return String(valor).trim();
 
@@ -527,22 +871,41 @@ function normalizarValor(valor) {
 
 function escaparHTML(valor) {
 
-    if (valor === null || valor === undefined) {
+    if (
+        valor === null ||
+        valor === undefined
+    ) {
 
         return '';
 
     }
 
+
     return String(valor)
 
-        .replace(/&/g, '&amp;')
+        .replace(
+            /&/g,
+            '&amp;'
+        )
 
-        .replace(/</g, '&lt;')
+        .replace(
+            /</g,
+            '&lt;'
+        )
 
-        .replace(/>/g, '&gt;')
+        .replace(
+            />/g,
+            '&gt;'
+        )
 
-        .replace(/"/g, '&quot;')
+        .replace(
+            /"/g,
+            '&quot;'
+        )
 
-        .replace(/'/g, '&#039;');
+        .replace(
+            /'/g,
+            '&#039;'
+        );
 
 }
