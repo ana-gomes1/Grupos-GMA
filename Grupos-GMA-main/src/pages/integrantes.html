@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>GMA - Integrantes</title>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Configuração das cores -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: 'var(--primary)',
+                        sidebar: 'var(--sidebar)',
+                        background: 'var(--background)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Tema -->
+    <script src="../colors.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="bg-background text-slate-800">
+
+    <div class="flex min-h-screen">
+
+        <!-- SIDEBAR -->
+        <aside class="fixed left-0 top-0 w-[240px] h-screen bg-sidebar text-white flex flex-col z-50">
+
+            <!-- Logo -->
+            <div class="h-[75px] flex items-center px-7">
+
+                <div class="flex items-center gap-3">
+
+                    <i class="fa-solid fa-users text-2xl"></i>
+
+                    <span class="text-xl font-semibold">
+                        iGrupos
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- MENU -->
+            <nav class="px-4 space-y-2">
+
+                <a href="index.html"
+                    class="flex items-center gap-4 px-4 py-3 rounded-lg hover:bg-white/10 transition">
+
+                    <i class="fa-solid fa-house w-5"></i>
+
+                    <span>Dashboard</span>
+
+                </a>
+
+
+                <a href="grupos.html"
+                    class="flex items-center gap-4 px-4 py-3 rounded-lg hover:bg-white/10 transition">
+
+                    <i class="fa-solid fa-users w-5"></i>
+
+                    <span>Grupos</span>
+
+                </a>
+
+
+                <a href="integrantes.html"
+                    class="flex items-center gap-4 px-4 py-3 rounded-lg bg-primary text-white">
+
+                    <i class="fa-solid fa-user-group w-5"></i>
+
+                    <span>Integrantes</span>
+
+                </a>
+
+
+                <a href="movimentacoes.html"
+                    class="flex items-center gap-4 px-4 py-3 rounded-lg hover:bg-white/10 transition">
+
+                    <i class="fa-regular fa-rectangle-list w-5"></i>
+
+                    <span>Movimentações</span>
+
+                </a>
+
+
+                <a href="configuracoes.html"
+                    class="flex items-center gap-4 px-4 py-3 rounded-lg hover:bg-white/10 transition">
+
+                    <i class="fa-solid fa-gear w-5"></i>
+
+                    <span>Configurações</span>
+
+                </a>
+
+            </nav>
+
+
+            <!-- INTEGRAÇÕES -->
+            <div class="mt-auto px-7 pb-7">
+
+                <p class="text-xs text-slate-400 mb-4">
+                    Conectado com
+                </p>
+
+
+                <div class="flex items-center gap-3 mb-4">
+
+                    <div class="w-8 h-8 bg-green-500 rounded-md flex items-center justify-center">
+
+                        <i class="fa-solid fa-table-cells text-white"></i>
+
+                    </div>
+
+                    <span class="text-sm">
+                        Google Planilhas
+                    </span>
+
+                </div>
+
+
+                <div class="flex items-center gap-3">
+
+                    <div class="w-8 h-8 bg-purple-500 rounded-md flex items-center justify-center">
+
+                        <i class="fa-solid fa-file-lines text-white"></i>
+
+                    </div>
+
+                    <span class="text-sm">
+                        Google Forms
+                    </span>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+
+        <!-- CONTEÚDO -->
+        <main class="ml-[240px] flex-1 min-h-screen">
+
+            <!-- HEADER -->
+            <header
+                class="h-[72px] bg-white border-b border-slate-200 flex items-center justify-end px-8">
+
+                <div
+                    class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-semibold">
+
+                    AV
+
+                </div>
+
+            </header>
+
+
+            <!-- PÁGINA -->
+            <section class="p-8">
+
+
+                <!-- TÍTULO -->
+                <div class="mb-7">
+
+                    <h1 class="text-3xl font-bold text-slate-900">
+                        Integrantes
+                    </h1>
+
+                    <p class="text-slate-500 mt-1">
+                        Veja todos os integrantes dos grupos.
+                    </p>
+
+                </div>
+
+
+                <!-- FILTROS -->
+                <div class="flex items-center justify-between mb-5">
+
+
+                    <!-- BUSCA -->
+                    <div class="relative w-[360px]">
+
+                        <i
+                            class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
+                        </i>
+
+                        <input
+                            id="buscarIntegrante"
+                            type="text"
+                            placeholder="Buscar integrante..."
+                            class="w-full h-11 pl-11 pr-4 bg-white border border-slate-200 rounded-lg outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+
+                    </div>
+
+
+                    <!-- BOTÃO EXPORTAR -->
+                    <button
+                        id="btnExportar"
+                        class="h-11 px-5 bg-white border border-slate-200 rounded-lg flex items-center gap-2 hover:bg-slate-50 transition">
+
+                        <i class="fa-solid fa-download"></i>
+
+                        Exportar
+
+                    </button>
+
+                </div>
+
+
+                <!-- TABELA -->
+                <div
+                    class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+
+                    <div class="overflow-x-auto">
+
+                        <table class="w-full">
+
+                            <thead class="bg-slate-50 border-b border-slate-200">
+
+                                <tr>
+
+                                    <th class="text-left px-5 py-4 text-sm font-semibold text-slate-600">
+                                        Nome
+                                    </th>
+
+                                    <th class="text-left px-5 py-4 text-sm font-semibold text-slate-600">
+                                        Matrícula
+                                    </th>
+
+                                    <th class="text-left px-5 py-4 text-sm font-semibold text-slate-600">
+                                        Grupo
+                                    </th>
+
+                                    <th class="text-left px-5 py-4 text-sm font-semibold text-slate-600">
+                                        E-mail
+                                    </th>
+
+                                    <th class="text-left px-5 py-4 text-sm font-semibold text-slate-600">
+                                        Função
+                                    </th>
+
+                                    <th class="text-left px-5 py-4 text-sm font-semibold text-slate-600">
+                                        Área
+                                    </th>
+
+                                    <th class="text-left px-5 py-4 text-sm font-semibold text-slate-600">
+                                        Turno
+                                    </th>
+
+                                    <th class="w-16"></th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody id="tabelaIntegrantes">
+
+                                <!-- Preenchido pelo JavaScript -->
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <!-- MODAL -->
+    <div
+        id="modalIntegrante"
+        class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50 p-4">
+
+        <div
+            class="bg-white w-full max-w-2xl rounded-2xl shadow-xl max-h-[90vh] overflow-y-auto">
+
+
+            <!-- CABEÇALHO -->
+            <div
+                class="flex items-center justify-between px-7 py-5 border-b border-slate-200">
+
+                <div>
+
+                    <h2 class="text-xl font-bold text-slate-900">
+                        Dados do integrante
+                    </h2>
+
+                    <p class="text-sm text-slate-500">
+                        Informações cadastrais
+                    </p>
+
+                </div>
+
+
+                <button
+                    id="fecharModal"
+                    class="w-9 h-9 rounded-lg hover:bg-slate-100 text-slate-500">
+
+                    <i class="fa-solid fa-xmark text-lg"></i>
+
+                </button>
+
+            </div>
+
+
+            <!-- CONTEÚDO -->
+            <div class="p-7">
+
+
+                <!-- FOTO + NOME -->
+                <div class="flex items-center gap-5 mb-7">
+
+                    <img
+                        id="modalFoto"
+                        src=""
+                        class="w-20 h-20 rounded-full object-cover border-4 border-slate-100">
+
+                    <div>
+
+                        <h3
+                            id="modalNome"
+                            class="text-xl font-bold text-slate-900">
+                        </h3>
+
+                        <p
+                            id="modalGrupo"
+                            class="text-sm text-slate-500">
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CAMPOS -->
+                <div class="grid grid-cols-2 gap-5">
+
+
+                    <div>
+
+                        <label class="text-sm font-medium text-slate-500">
+                            Nome completo
+                        </label>
+
+                        <p id="modalNomeCompleto"
+                            class="mt-1 font-medium text-slate-800">
+                        </p>
+
+                    </div>
+
+
+                    <div>
+
+                        <label class="text-sm font-medium text-slate-500">
+                            Matrícula
+                        </label>
+
+                        <p id="modalMatricula"
+                            class="mt-1 font-medium text-slate-800">
+                        </p>
+
+                    </div>
+
+
+                    <div>
+
+                        <label class="text-sm font-medium text-slate-500">
+                            Grupo
+                        </label>
+
+                        <p id="modalGrupoCompleto"
+                            class="mt-1 font-medium text-slate-800">
+                        </p>
+
+                    </div>
+
+
+                    <div>
+
+                        <label class="text-sm font-medium text-slate-500">
+                            Função
+                        </label>
+
+                        <p id="modalFuncao"
+                            class="mt-1 font-medium text-slate-800">
+                        </p>
+
+                    </div>
+
+
+                    <div>
+
+                        <label class="text-sm font-medium text-slate-500">
+                            E-mail
+                        </label>
+
+                        <p id="modalEmail"
+                            class="mt-1 font-medium text-slate-800 break-all">
+                        </p>
+
+                    </div>
+
+
+                    <div>
+
+                        <label class="text-sm font-medium text-slate-500">
+                            Turno
+                        </label>
+
+                        <p id="modalTurno"
+                            class="mt-1 font-medium text-slate-800">
+                        </p>
+
+                    </div>
+
+
+                    <div>
+
+                        <label class="text-sm font-medium text-slate-500">
+                            Ramal
+                        </label>
+
+                        <p id="modalRamal"
+                            class="mt-1 font-medium text-slate-800">
+                        </p>
+
+                    </div>
+
+
+                    <div>
+
+                        <label class="text-sm font-medium text-slate-500">
+                            Celular
+                        </label>
+
+                        <p id="modalCelular"
+                            class="mt-1 font-medium text-slate-800">
+                        </p>
+
+                    </div>
+
+
+                    <div>
+
+                        <label class="text-sm font-medium text-slate-500">
+                            Cargo
+                        </label>
+
+                        <p id="modalCargo"
+                            class="mt-1 font-medium text-slate-800">
+                        </p>
+
+                    </div>
+
+
+                    <div>
+
+                        <label class="text-sm font-medium text-slate-500">
+                            Área
+                        </label>
+
+                        <p id="modalArea"
+                            class="mt-1 font-medium text-slate-800">
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- RODAPÉ -->
+            <div class="flex items-center justify-between px-7 py-5 border-t border-slate-200">
+
+            <!-- Excluir -->
+                <button
+                    id="btnExcluir"
+                    class="px-5 py-2.5 text-red-600 bg-red-50 rounded-lg hover:bg-red-100 transition">
+
+                    <i class="fa-solid fa-trash mr-2"></i>
+
+                    Excluir
+
+                </button>
+
+
+            <div class="flex items-center gap-3">
+
+                <!-- Cancelar -->
+                <button
+                    id="btnCancelarEdicao"
+                    class="hidden px-5 py-2.5 bg-slate-100 rounded-lg text-slate-700 hover:bg-slate-200 transition">
+
+                    Cancelar
+
+                </button>
+
+
+                <!-- Editar -->
+                <button
+                    id="btnEditar"
+                    class="px-5 py-2.5 bg-primary text-white rounded-lg hover:opacity-90 transition">
+
+                    <i class="fa-solid fa-pen mr-2"></i>
+
+                    Editar
+
+                </button>
+
+
+                <!-- Salvar -->
+                <button
+                    id="btnSalvar"
+                    class="hidden px-5 py-2.5 bg-primary text-white rounded-lg hover:opacity-90 transition">
+
+                    <i class="fa-solid fa-check mr-2"></i>
+
+                    Salvar alterações
+
+                </button>
+
+
+                <!-- Fechar -->
+                <button
+                    id="btnFecharModal"
+                    class="px-5 py-2.5 bg-slate-100 rounded-lg text-slate-700 hover:bg-slate-200 transition">
+
+                    Fechar
+
+                </button>
+
+            </div>
+
+</div>
+
+        </div>
+
+    </div>
+
+
+    <script src="../script.js"></script>
+    <script src="../integrantes.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <link rel="stylesheet" href="../style.css">
+
+    <title>GMA - Configurações</title>
+
+
+    <!-- Tailwind -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+
+    <!-- Font Awesome -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+
+    <script>
+
+        tailwind.config = {
+
+            theme: {
+
+                extend: {
+
+                    colors: {
+
+                        primary: 'var(--primary)',
+                        sidebar: 'var(--sidebar)',
+                        background: 'var(--background)'
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    </script>
+
+</head>
+
+
+<body class="bg-background text-slate-800 transition-colors duration-300">
+
+
+<div class="flex min-h-screen">
+
+
+    <!-- ================================================= -->
+    <!-- SIDEBAR -->
+    <!-- ================================================= -->
+
+    <aside
+        id="sidebar"
+        class="w-[240px] bg-sidebar text-white flex flex-col"
+    >
+
+
+        <!-- Logo -->
+
+        <div class="h-[75px] flex items-center px-7">
+
+            <div class="flex items-center gap-3">
+
+                <i class="fa-solid fa-users text-2xl"></i>
+
+                <span class="text-xl font-semibold">
+                    iGrupos
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- Menu -->
+
+        <nav class="px-4 space-y-2">
+
+
+            <a
+                href="index.html"
+                class="nav-item flex items-center gap-4 px-4 py-3 rounded-lg
+                       hover:bg-white/10 transition"
+            >
+
+                <i class="fa-solid fa-house w-5"></i>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+            <a
+                href="grupos.html"
+                class="nav-item flex items-center gap-4 px-4 py-3 rounded-lg
+                       hover:bg-white/10 transition"
+            >
+
+                <i class="fa-solid fa-users w-5"></i>
+
+                <span>
+                    Grupos
+                </span>
+
+            </a>
+
+
+            <a
+                href="integrantes.html"
+                class="nav-item flex items-center gap-4 px-4 py-3 rounded-lg
+                       hover:bg-white/10 transition"
+            >
+
+                <i class="fa-solid fa-user-group w-5"></i>
+
+                <span>
+                    Integrantes
+                </span>
+
+            </a>
+
+
+            <a
+                href="movimentacoes.html"
+                class="nav-item flex items-center gap-4 px-4 py-3 rounded-lg
+                       hover:bg-white/10 transition"
+            >
+
+                <i class="fa-regular fa-rectangle-list w-5"></i>
+
+                <span>
+                    Movimentações
+                </span>
+
+            </a>
+
+
+            <!-- Página atual -->
+
+            <a
+                href="configuracoes.html"
+                class="nav-item flex items-center gap-4 px-4 py-3 rounded-lg
+                       bg-primary text-white"
+            >
+
+                <i class="fa-solid fa-gear w-5"></i>
+
+                <span>
+                    Configurações
+                </span>
+
+            </a>
+
+        </nav>
+
+
+        <!-- ================================================= -->
+        <!-- INTEGRAÇÕES -->
+        <!-- ================================================= -->
+
+        <div class="mt-auto px-7 pb-7">
+
+            <p class="text-xs text-slate-400 mb-4">
+                Conectado com
+            </p>
+
+
+            <!-- Google Sheets -->
+
+            <div class="flex items-center gap-3 mb-4">
+
+                <div
+                    class="w-8 h-8 bg-green-500 rounded-md
+                           flex items-center justify-center"
+                >
+
+                    <i class="fa-solid fa-table-cells text-white"></i>
+
+                </div>
+
+
+                <span class="text-sm">
+                    Google Planilhas
+                </span>
+
+            </div>
+
+
+            <!-- Google Forms -->
+
+            <div class="flex items-center gap-3">
+
+                <div
+                    class="w-8 h-8 bg-purple-500 rounded-md
+                           flex items-center justify-center"
+                >
+
+                    <i class="fa-solid fa-file-lines text-white"></i>
+
+                </div>
+
+
+                <span class="text-sm">
+                    Google Forms
+                </span>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- ================================================= -->
+    <!-- CONTEÚDO -->
+    <!-- ================================================= -->
+
+    <main class="flex-1">
+
+
+        <!-- HEADER -->
+
+        <header
+            id="header"
+            class="h-[72px] bg-white border-b border-slate-200
+                   flex items-center justify-end px-8"
+        >
+
+            <div
+                class="w-10 h-10 rounded-full bg-blue-500
+                       text-white flex items-center justify-center
+                       font-semibold"
+            >
+
+                AV
+
+            </div>
+
+        </header>
+
+
+
+        <!-- ================================================= -->
+        <!-- CONFIGURAÇÕES -->
+        <!-- ================================================= -->
+
+        <section class="p-8">
+
+
+            <div class="mb-7">
+
+                <h1
+                    id="tituloPagina"
+                    class="text-3xl font-bold text-slate-900"
+                >
+
+                    Configurações
+
+                </h1>
+
+
+                <p
+                    id="descricaoPagina"
+                    class="text-slate-500 mt-2"
+                >
+
+                    Personalize algumas opções do iGrupos.
+
+                </p>
+
+            </div>
+
+
+
+            <!-- ================================================= -->
+            <!-- CARD APARÊNCIA -->
+            <!-- ================================================= -->
+
+            <div
+                id="cardAparencia"
+                class="bg-white border border-slate-200
+                       rounded-xl overflow-hidden mb-5"
+            >
+
+                <div class="p-6">
+
+
+                    <div class="flex items-center gap-4 mb-6">
+
+                        <div
+                            class="w-10 h-10 rounded-lg
+                                   bg-blue-100 text-primary
+                                   flex items-center justify-center"
+                        >
+
+                            <i class="fa-solid fa-palette"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <h2
+                                class="font-semibold text-slate-800"
+                            >
+
+                                Aparência
+
+                            </h2>
+
+
+                            <p
+                                class="text-sm text-slate-500"
+                            >
+
+                                Escolha como o iGrupos será exibido.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- TEMA -->
+
+                    <div
+                        class="flex items-center justify-between
+                               py-4"
+                    >
+
+                        <div>
+
+                            <p
+                                class="font-medium text-slate-700"
+                            >
+
+                                Tema
+
+                            </p>
+
+
+                            <p
+                                class="text-sm text-slate-500 mt-1"
+                            >
+
+                                Altere entre o tema claro e escuro.
+
+                            </p>
+
+                        </div>
+
+
+
+                        <select
+                            id="temaSelect"
+                            class="w-36 h-10
+                                   border border-slate-200
+                                   rounded-lg px-3
+                                   bg-white
+                                   text-slate-700
+                                   outline-none
+                                   focus:ring-2
+                                   focus:ring-blue-200"
+                        >
+
+                            <option value="light">
+                                Claro
+                            </option>
+
+                            <option value="dark">
+                                Escuro
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================================================= -->
+            <!-- CARD ATUALIZAÇÃO -->
+            <!-- ================================================= -->
+
+            <div
+                id="cardAtualizacao"
+                class="bg-white border border-slate-200
+                       rounded-xl overflow-hidden"
+            >
+
+                <div class="p-6">
+
+
+                    <div class="flex items-center gap-4 mb-6">
+
+                        <div
+                            class="w-10 h-10 rounded-lg
+                                   bg-green-100 text-green-600
+                                   flex items-center justify-center"
+                        >
+
+                            <i class="fa-solid fa-rotate"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <h2
+                                class="font-semibold text-slate-800"
+                            >
+
+                                Dados
+
+                            </h2>
+
+
+                            <p
+                                class="text-sm text-slate-500"
+                            >
+
+                                Controle como os dados são atualizados.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ATUALIZAÇÃO AUTOMÁTICA -->
+
+                    <div
+                        class="flex items-center justify-between
+                               py-4"
+                    >
+
+                        <div>
+
+                            <p
+                                class="font-medium text-slate-700"
+                            >
+
+                                Atualização automática
+
+                            </p>
+
+
+                            <p
+                                class="text-sm text-slate-500 mt-1"
+                            >
+
+                                Atualiza os dados automaticamente.
+
+                            </p>
+
+                        </div>
+
+
+
+                        <!-- SWITCH -->
+
+                        <button
+                            id="toggleAtualizacao"
+                            type="button"
+                            class="relative w-12 h-6
+                                   rounded-full bg-primary
+                                   transition"
+                        >
+
+                            <span
+                                id="toggleBolinha"
+                                class="absolute top-1 right-1
+                                       w-4 h-4 bg-white
+                                       rounded-full
+                                       transition"
+                            ></span>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+    </main>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- JAVASCRIPT -->
+<!-- ================================================= -->
+
+<script src="../configuracoes.js"></script>
+<script src="../script.js"></script>
+
+
+</body>
+
+</html>
