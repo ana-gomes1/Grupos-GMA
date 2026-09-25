@@ -40,7 +40,8 @@
 
     <div class="flex min-h-screen">
 
-        <!-- SIDEBAR -->
+        <!-- ==================== SIDEBAR ==================== -->
+
         <aside class="fixed left-0 top-0 w-[240px] h-screen bg-sidebar text-white flex flex-col z-50">
 
             <!-- Logo -->
@@ -59,7 +60,7 @@
             </div>
 
 
-            <!-- MENU -->
+            <!-- Menu -->
             <nav class="px-4 space-y-2">
 
                 <a href="index.html"
@@ -67,7 +68,9 @@
 
                     <i class="fa-solid fa-house w-5"></i>
 
-                    <span>Dashboard</span>
+                    <span>
+                        Dashboard
+                    </span>
 
                 </a>
 
@@ -77,7 +80,9 @@
 
                     <i class="fa-solid fa-users w-5"></i>
 
-                    <span>Grupos</span>
+                    <span>
+                        Grupos
+                    </span>
 
                 </a>
 
@@ -87,7 +92,9 @@
 
                     <i class="fa-solid fa-user-group w-5"></i>
 
-                    <span>Integrantes</span>
+                    <span>
+                        Integrantes
+                    </span>
 
                 </a>
 
@@ -97,7 +104,9 @@
 
                     <i class="fa-regular fa-rectangle-list w-5"></i>
 
-                    <span>Movimentações</span>
+                    <span>
+                        Movimentações
+                    </span>
 
                 </a>
 
@@ -107,14 +116,16 @@
 
                     <i class="fa-solid fa-gear w-5"></i>
 
-                    <span>Configurações</span>
+                    <span>
+                        Configurações
+                    </span>
 
                 </a>
 
             </nav>
 
 
-            <!-- INTEGRAÇÕES -->
+            <!-- Integrações -->
             <div class="mt-auto px-7 pb-7">
 
                 <p class="text-xs text-slate-400 mb-4">
@@ -156,7 +167,8 @@
         </aside>
 
 
-        <!-- CONTEÚDO -->
+        <!-- ==================== CONTEÚDO ==================== -->
+
         <main class="ml-[240px] flex-1 min-h-screen">
 
             <!-- HEADER -->
@@ -191,9 +203,9 @@
                 </div>
 
 
-                <!-- FILTROS -->
-                <div class="flex items-center justify-between mb-5">
+                <!-- ==================== FILTROS ==================== -->
 
+                <div class="flex items-center justify-between mb-5">
 
                     <!-- BUSCA -->
                     <div class="relative w-[360px]">
@@ -211,9 +223,10 @@
                     </div>
 
 
-                    <!-- BOTÃO EXPORTAR -->
+                    <!-- EXPORTAR -->
                     <button
                         id="btnExportar"
+                        type="button"
                         class="h-11 px-5 bg-white border border-slate-200 rounded-lg flex items-center gap-2 hover:bg-slate-50 transition">
 
                         <i class="fa-solid fa-download"></i>
@@ -225,7 +238,8 @@
                 </div>
 
 
-                <!-- TABELA -->
+                <!-- ==================== TABELA ==================== -->
+
                 <div
                     class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
 
@@ -237,31 +251,38 @@
 
                                 <tr>
 
-                                    <th class="text-left px-5 py-4 text-sm font-semibold text-slate-600">
+                                    <th
+                                        class="text-left px-5 py-4 text-sm font-semibold text-slate-600">
                                         Nome
                                     </th>
 
-                                    <th class="text-left px-5 py-4 text-sm font-semibold text-slate-600">
+                                    <th
+                                        class="text-left px-5 py-4 text-sm font-semibold text-slate-600">
                                         Matrícula
                                     </th>
 
-                                    <th class="text-left px-5 py-4 text-sm font-semibold text-slate-600">
+                                    <th
+                                        class="text-left px-5 py-4 text-sm font-semibold text-slate-600">
                                         Grupo
                                     </th>
 
-                                    <th class="text-left px-5 py-4 text-sm font-semibold text-slate-600">
+                                    <th
+                                        class="text-left px-5 py-4 text-sm font-semibold text-slate-600">
                                         E-mail
                                     </th>
 
-                                    <th class="text-left px-5 py-4 text-sm font-semibold text-slate-600">
+                                    <th
+                                        class="text-left px-5 py-4 text-sm font-semibold text-slate-600">
                                         Função
                                     </th>
 
-                                    <th class="text-left px-5 py-4 text-sm font-semibold text-slate-600">
+                                    <th
+                                        class="text-left px-5 py-4 text-sm font-semibold text-slate-600">
                                         Área
                                     </th>
 
-                                    <th class="text-left px-5 py-4 text-sm font-semibold text-slate-600">
+                                    <th
+                                        class="text-left px-5 py-4 text-sm font-semibold text-slate-600">
                                         Turno
                                     </th>
 
@@ -284,7 +305,6 @@
 
                 </div>
 
-
             </section>
 
         </main>
@@ -292,7 +312,10 @@
     </div>
 
 
-    <!-- MODAL -->
+    <!-- ========================================================= -->
+    <!--                         MODAL                              -->
+    <!-- ========================================================= -->
+
     <div
         id="modalIntegrante"
         class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50 p-4">
@@ -301,7 +324,8 @@
             class="bg-white w-full max-w-2xl rounded-2xl shadow-xl max-h-[90vh] overflow-y-auto">
 
 
-            <!-- CABEÇALHO -->
+            <!-- ==================== CABEÇALHO ==================== -->
+
             <div
                 class="flex items-center justify-between px-7 py-5 border-b border-slate-200">
 
@@ -319,6 +343,7 @@
 
 
                 <button
+                    type="button"
                     id="fecharModal"
                     class="w-9 h-9 rounded-lg hover:bg-slate-100 text-slate-500">
 
@@ -329,240 +354,378 @@
             </div>
 
 
-            <!-- CONTEÚDO -->
-            <div class="p-7">
+            <!-- ==================== FORMULÁRIO ==================== -->
+
+            <form id="formIntegrante">
+
+                <!-- CONTEÚDO -->
+                <div class="p-7">
 
 
-                <!-- FOTO + NOME -->
-                <div class="flex items-center gap-5 mb-7">
+                    <!-- ==================== FOTO + NOME ==================== -->
 
-                    <img
-                        id="modalFoto"
-                        src=""
-                        class="w-20 h-20 rounded-full object-cover border-4 border-slate-100">
+                    <div class="flex items-center gap-5 mb-7">
 
-                    <div>
+                        <img
+                            id="modalFoto"
+                            src=""
+                            alt="Foto do integrante"
+                            class="w-20 h-20 rounded-full object-cover border-4 border-slate-100">
 
-                        <h3
-                            id="modalNome"
-                            class="text-xl font-bold text-slate-900">
-                        </h3>
 
-                        <p
-                            id="modalGrupo"
-                            class="text-sm text-slate-500">
-                        </p>
+                        <div>
+
+                            <h3
+                                id="modalNome"
+                                class="text-xl font-bold text-slate-900">
+                            </h3>
+
+                            <p
+                                id="modalGrupo"
+                                class="text-sm text-slate-500">
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ==================== CAMPOS ==================== -->
+
+                    <div class="grid grid-cols-2 gap-5">
+
+
+                        <!-- NOME -->
+                        <div>
+
+                            <label
+                                for="modalNomeCompleto"
+                                class="text-sm font-medium text-slate-500">
+
+                                Nome completo
+
+                            </label>
+
+                            <input
+                                type="text"
+                                id="modalNomeCompleto"
+                                name="nome"
+                                disabled
+                                class="mt-1 w-full px-3 py-2.5 border border-slate-200 rounded-lg
+                                       bg-slate-50 text-slate-800 outline-none
+                                       focus:ring-2 focus:ring-primary/20
+                                       focus:border-primary disabled:cursor-not-allowed">
+
+                        </div>
+
+
+                        <!-- MATRÍCULA -->
+                        <div>
+
+                            <label
+                                for="modalMatricula"
+                                class="text-sm font-medium text-slate-500">
+
+                                Matrícula
+
+                            </label>
+
+                            <input
+                                type="text"
+                                id="modalMatricula"
+                                name="matricula"
+                                disabled
+                                class="mt-1 w-full px-3 py-2.5 border border-slate-200 rounded-lg
+                                       bg-slate-50 text-slate-800 outline-none
+                                       focus:ring-2 focus:ring-primary/20
+                                       focus:border-primary disabled:cursor-not-allowed">
+
+                        </div>
+
+
+                        <!-- GRUPO -->
+                        <div>
+
+                            <label
+                                for="modalGrupoCompleto"
+                                class="text-sm font-medium text-slate-500">
+
+                                Grupo
+
+                            </label>
+
+                            <input
+                                type="text"
+                                id="modalGrupoCompleto"
+                                name="grupo"
+                                disabled
+                                class="mt-1 w-full px-3 py-2.5 border border-slate-200 rounded-lg
+                                       bg-slate-50 text-slate-800 outline-none
+                                       focus:ring-2 focus:ring-primary/20
+                                       focus:border-primary disabled:cursor-not-allowed">
+
+                        </div>
+
+
+                        <!-- FUNÇÃO -->
+                        <div>
+
+                            <label
+                                for="modalFuncao"
+                                class="text-sm font-medium text-slate-500">
+
+                                Função
+
+                            </label>
+
+                            <input
+                                type="text"
+                                id="modalFuncao"
+                                name="funcao"
+                                disabled
+                                class="mt-1 w-full px-3 py-2.5 border border-slate-200 rounded-lg
+                                       bg-slate-50 text-slate-800 outline-none
+                                       focus:ring-2 focus:ring-primary/20
+                                       focus:border-primary disabled:cursor-not-allowed">
+
+                        </div>
+
+
+                        <!-- E-MAIL -->
+                        <div>
+
+                            <label
+                                for="modalEmail"
+                                class="text-sm font-medium text-slate-500">
+
+                                E-mail
+
+                            </label>
+
+                            <input
+                                type="email"
+                                id="modalEmail"
+                                name="email"
+                                disabled
+                                class="mt-1 w-full px-3 py-2.5 border border-slate-200 rounded-lg
+                                       bg-slate-50 text-slate-800 outline-none
+                                       focus:ring-2 focus:ring-primary/20
+                                       focus:border-primary disabled:cursor-not-allowed">
+
+                        </div>
+
+
+                        <!-- TURNO -->
+                        <div>
+
+                            <label
+                                for="modalTurno"
+                                class="text-sm font-medium text-slate-500">
+
+                                Turno
+
+                            </label>
+
+                            <input
+                                type="text"
+                                id="modalTurno"
+                                name="turno"
+                                disabled
+                                class="mt-1 w-full px-3 py-2.5 border border-slate-200 rounded-lg
+                                       bg-slate-50 text-slate-800 outline-none
+                                       focus:ring-2 focus:ring-primary/20
+                                       focus:border-primary disabled:cursor-not-allowed">
+
+                        </div>
+
+
+                        <!-- RAMAL -->
+                        <div>
+
+                            <label
+                                for="modalRamal"
+                                class="text-sm font-medium text-slate-500">
+
+                                Ramal
+
+                            </label>
+
+                            <input
+                                type="text"
+                                id="modalRamal"
+                                name="ramal"
+                                disabled
+                                class="mt-1 w-full px-3 py-2.5 border border-slate-200 rounded-lg
+                                       bg-slate-50 text-slate-800 outline-none
+                                       focus:ring-2 focus:ring-primary/20
+                                       focus:border-primary disabled:cursor-not-allowed">
+
+                        </div>
+
+
+                        <!-- CELULAR -->
+                        <div>
+
+                            <label
+                                for="modalCelular"
+                                class="text-sm font-medium text-slate-500">
+
+                                Celular
+
+                            </label>
+
+                            <input
+                                type="text"
+                                id="modalCelular"
+                                name="celular"
+                                disabled
+                                class="mt-1 w-full px-3 py-2.5 border border-slate-200 rounded-lg
+                                       bg-slate-50 text-slate-800 outline-none
+                                       focus:ring-2 focus:ring-primary/20
+                                       focus:border-primary disabled:cursor-not-allowed">
+
+                        </div>
+
+
+                        <!-- CARGO -->
+                        <div>
+
+                            <label
+                                for="modalCargo"
+                                class="text-sm font-medium text-slate-500">
+
+                                Cargo
+
+                            </label>
+
+                            <input
+                                type="text"
+                                id="modalCargo"
+                                name="cargo"
+                                disabled
+                                class="mt-1 w-full px-3 py-2.5 border border-slate-200 rounded-lg
+                                       bg-slate-50 text-slate-800 outline-none
+                                       focus:ring-2 focus:ring-primary/20
+                                       focus:border-primary disabled:cursor-not-allowed">
+
+                        </div>
+
+
+                        <!-- ÁREA -->
+                        <div>
+
+                            <label
+                                for="modalArea"
+                                class="text-sm font-medium text-slate-500">
+
+                                Área
+
+                            </label>
+
+                            <input
+                                type="text"
+                                id="modalArea"
+                                name="area"
+                                disabled
+                                class="mt-1 w-full px-3 py-2.5 border border-slate-200 rounded-lg
+                                       bg-slate-50 text-slate-800 outline-none
+                                       focus:ring-2 focus:ring-primary/20
+                                       focus:border-primary disabled:cursor-not-allowed">
+
+                        </div>
+
 
                     </div>
 
                 </div>
 
 
-                <!-- CAMPOS -->
-                <div class="grid grid-cols-2 gap-5">
+                <!-- ==================== RODAPÉ ==================== -->
+
+                <div
+                    class="flex items-center justify-between px-7 py-5 border-t border-slate-200">
 
 
-                    <div>
+                    <!-- EXCLUIR -->
+                    <button
+                        type="button"
+                        id="btnExcluir"
+                        class="px-5 py-2.5 text-red-600 bg-red-50 rounded-lg
+                               hover:bg-red-100 transition">
 
-                        <label class="text-sm font-medium text-slate-500">
-                            Nome completo
-                        </label>
+                        <i class="fa-solid fa-trash mr-2"></i>
 
-                        <p id="modalNomeCompleto"
-                            class="mt-1 font-medium text-slate-800">
-                        </p>
+                        Excluir
 
-                    </div>
-
-
-                    <div>
-
-                        <label class="text-sm font-medium text-slate-500">
-                            Matrícula
-                        </label>
-
-                        <p id="modalMatricula"
-                            class="mt-1 font-medium text-slate-800">
-                        </p>
-
-                    </div>
+                    </button>
 
 
-                    <div>
-
-                        <label class="text-sm font-medium text-slate-500">
-                            Grupo
-                        </label>
-
-                        <p id="modalGrupoCompleto"
-                            class="mt-1 font-medium text-slate-800">
-                        </p>
-
-                    </div>
+                    <!-- BOTÕES DA DIREITA -->
+                    <div class="flex items-center gap-3">
 
 
-                    <div>
+                        <!-- CANCELAR -->
+                        <button
+                            type="button"
+                            id="btnCancelarEdicao"
+                            class="hidden px-5 py-2.5 bg-slate-100 rounded-lg
+                                   text-slate-700 hover:bg-slate-200 transition">
 
-                        <label class="text-sm font-medium text-slate-500">
-                            Função
-                        </label>
+                            Cancelar
 
-                        <p id="modalFuncao"
-                            class="mt-1 font-medium text-slate-800">
-                        </p>
-
-                    </div>
-
-
-                    <div>
-
-                        <label class="text-sm font-medium text-slate-500">
-                            E-mail
-                        </label>
-
-                        <p id="modalEmail"
-                            class="mt-1 font-medium text-slate-800 break-all">
-                        </p>
-
-                    </div>
+                        </button>
 
 
-                    <div>
+                        <!-- EDITAR -->
+                        <button
+                            type="button"
+                            id="btnEditar"
+                            class="px-5 py-2.5 bg-primary text-white rounded-lg
+                                   hover:opacity-90 transition">
 
-                        <label class="text-sm font-medium text-slate-500">
-                            Turno
-                        </label>
+                            <i class="fa-solid fa-pen mr-2"></i>
 
-                        <p id="modalTurno"
-                            class="mt-1 font-medium text-slate-800">
-                        </p>
+                            Editar
 
-                    </div>
-
-
-                    <div>
-
-                        <label class="text-sm font-medium text-slate-500">
-                            Ramal
-                        </label>
-
-                        <p id="modalRamal"
-                            class="mt-1 font-medium text-slate-800">
-                        </p>
-
-                    </div>
+                        </button>
 
 
-                    <div>
+                        <!-- SALVAR -->
+                        <button
+                            type="submit"
+                            id="btnSalvar"
+                            class="hidden px-5 py-2.5 bg-primary text-white rounded-lg
+                                   hover:opacity-90 transition">
 
-                        <label class="text-sm font-medium text-slate-500">
-                            Celular
-                        </label>
+                            <i class="fa-solid fa-check mr-2"></i>
 
-                        <p id="modalCelular"
-                            class="mt-1 font-medium text-slate-800">
-                        </p>
+                            Salvar alterações
 
-                    </div>
-
-
-                    <div>
-
-                        <label class="text-sm font-medium text-slate-500">
-                            Cargo
-                        </label>
-
-                        <p id="modalCargo"
-                            class="mt-1 font-medium text-slate-800">
-                        </p>
-
-                    </div>
+                        </button>
 
 
-                    <div>
+                        <!-- FECHAR -->
+                        <button
+                            type="button"
+                            id="btnFecharModal"
+                            class="px-5 py-2.5 bg-slate-100 rounded-lg
+                                   text-slate-700 hover:bg-slate-200 transition">
 
-                        <label class="text-sm font-medium text-slate-500">
-                            Área
-                        </label>
+                            Fechar
 
-                        <p id="modalArea"
-                            class="mt-1 font-medium text-slate-800">
-                        </p>
+                        </button>
+
 
                     </div>
 
                 </div>
 
-            </div>
-
-
-            <!-- RODAPÉ -->
-            <div class="flex items-center justify-between px-7 py-5 border-t border-slate-200">
-
-            <!-- Excluir -->
-                <button
-                    id="btnExcluir"
-                    class="px-5 py-2.5 text-red-600 bg-red-50 rounded-lg hover:bg-red-100 transition">
-
-                    <i class="fa-solid fa-trash mr-2"></i>
-
-                    Excluir
-
-                </button>
-
-
-            <div class="flex items-center gap-3">
-
-                <!-- Cancelar -->
-                <button
-                    id="btnCancelarEdicao"
-                    class="hidden px-5 py-2.5 bg-slate-100 rounded-lg text-slate-700 hover:bg-slate-200 transition">
-
-                    Cancelar
-
-                </button>
-
-
-                <!-- Editar -->
-                <button
-                    id="btnEditar"
-                    class="px-5 py-2.5 bg-primary text-white rounded-lg hover:opacity-90 transition">
-
-                    <i class="fa-solid fa-pen mr-2"></i>
-
-                    Editar
-
-                </button>
-
-
-                <!-- Salvar -->
-                <button
-                    id="btnSalvar"
-                    class="hidden px-5 py-2.5 bg-primary text-white rounded-lg hover:opacity-90 transition">
-
-                    <i class="fa-solid fa-check mr-2"></i>
-
-                    Salvar alterações
-
-                </button>
-
-
-                <!-- Fechar -->
-                <button
-                    id="btnFecharModal"
-                    class="px-5 py-2.5 bg-slate-100 rounded-lg text-slate-700 hover:bg-slate-200 transition">
-
-                    Fechar
-
-                </button>
-
-            </div>
-
-</div>
+            </form>
 
         </div>
 
     </div>
+
 
 
     <script src="../script.js"></script>

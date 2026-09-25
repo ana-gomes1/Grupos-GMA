@@ -1,473 +1,548 @@
-const integrantes = [
-    {
-        id: 1,
-        foto: "https://i.pravatar.cc/150?img=47",
-        nome: "Ana Silva",
-        matricula: "12345",
-        grupo: "Grupo Inovação",
-        funcao: "Líder",
-        email: "ana.silva@empresa.com.br",
-        turno: "Manhã",
-        ramal: "2145",
-        celular: "(47) 99999-1111",
-        cargo: "Analista de TI",
-        area: "TI"
-    },
+const URL_API = 'COLE_AQUI_A_URL_DO_SEU_WEB_APP';
 
-    {
-        id: 2,
-        foto: "https://i.pravatar.cc/150?img=12",
-        nome: "Bruno Costa",
-        matricula: "23456",
-        grupo: "Grupo Zelseg",
-        funcao: "Integrante",
-        email: "bruno.costa@empresa.com.br",
-        turno: "Tarde",
-        ramal: "2180",
-        celular: "(47) 99999-2222",
-        cargo: "Técnico de Produção",
-        area: "Produção"
-    },
+const modal = document.getElementById('modalIntegrante');
+const form = document.getElementById('formIntegrante');
 
-    {
-        id: 3,
-        foto: "https://i.pravatar.cc/150?img=32",
-        nome: "Carla Souza",
-        matricula: "34567",
-        grupo: "Grupo Evolução",
-        funcao: "Secretário",
-        email: "carla.souza@empresa.com.br",
-        turno: "Noite",
-        ramal: "2214",
-        celular: "(47) 99999-3333",
-        cargo: "Assistente Administrativo",
-        area: "Qualidade"
-    },
+const btnEditar = document.getElementById('btnEditar');
+const btnSalvar = document.getElementById('btnSalvar');
+const btnCancelar = document.getElementById('btnCancelarEdicao');
+const btnFechar = document.getElementById('btnFecharModal');
+const btnFecharX = document.getElementById('fecharModal');
 
-    {
-        id: 4,
-        foto: "https://i.pravatar.cc/150?img=5",
-        nome: "Daniel Lima",
-        matricula: "45678",
-        grupo: "Grupo Tesla",
-        funcao: "Integrante",
-        email: "daniel.lima@empresa.com.br",
-        turno: "Manhã",
-        ramal: "2250",
-        celular: "(47) 99999-4444",
-        cargo: "Analista de Logística",
-        area: "Logística"
-    },
+const tabela = document.getElementById('tabelaIntegrantes');
+const busca = document.getElementById('buscarIntegrante');
 
-    {
-        id: 5,
-        foto: "https://i.pravatar.cc/150?img=44",
-        nome: "Eduarda Alves",
-        matricula: "56789",
-        grupo: "Grupo Alpha",
-        funcao: "Supervisora",
-        email: "eduarda.alves@empresa.com.br",
-        turno: "Tarde",
-        ramal: "2301",
-        celular: "(47) 99999-5555",
-        cargo: "Supervisora de Manutenção",
-        area: "Manutenção"
-    },
 
-    {
-        id: 6,
-        foto: "https://i.pravatar.cc/150?img=11",
-        nome: "Felipe Martins",
-        matricula: "67890",
-        grupo: "Grupo Beta",
-        funcao: "Líder",
-        email: "felipe.martins@empresa.com.br",
-        turno: "Noite",
-        ramal: "2310",
-        celular: "(47) 99999-6666",
-        cargo: "Analista Administrativo",
-        area: "Administrativo"
-    },
+let integranteAtual = null;
+let dadosOriginais = {};
 
-    {
-        id: 7,
-        foto: "https://i.pravatar.cc/150?img=49",
-        nome: "Gabriela Rocha",
-        matricula: "78901",
-        grupo: "Grupo Gama",
-        funcao: "Integrante",
-        email: "gabriela.rocha@empresa.com.br",
-        turno: "Manhã",
-        ramal: "2355",
-        celular: "(47) 99999-7777",
-        cargo: "Técnica de Produção",
-        area: "Produção"
-    },
 
-    {
-        id: 8,
-        foto: "https://i.pravatar.cc/150?img=13",
-        nome: "Gustavo Ferreira",
-        matricula: "89012",
-        grupo: "Grupo Delta",
-        funcao: "Secretário",
-        email: "gustavo.ferreira@empresa.com.br",
-        turno: "Tarde",
-        ramal: "2402",
-        celular: "(47) 99999-8888",
-        cargo: "Analista de Sistemas",
-        area: "TI"
-    }
+const campos = [
+    'nome',
+    'matricula',
+    'grupo',
+    'funcao',
+    'email',
+    'turno',
+    'ramal',
+    'celular',
+    'cargo',
+    'area'
 ];
 
 
-// ELEMENTOS
+document.addEventListener('DOMContentLoaded', () => {
 
-const tabela = document.getElementById("tabelaIntegrantes");
+    carregarIntegrantes();
 
-const busca = document.getElementById("buscarIntegrante");
-
-const modal = document.getElementById("modalIntegrante");
-
-const fecharModal = document.getElementById("fecharModal");
-
-const btnFecharModal = document.getElementById("btnFecharModal");
+});
 
 
-// RENDERIZAR TABELA
+async function carregarIntegrantes() {
 
-function renderizarIntegrantes(lista) {
+    try {
 
-    tabela.innerHTML = "";
+        tabela.innerHTML = `
+            <tr>
+                <td colspan="8" class="px-5 py-8 text-center text-slate-500">
+                    Carregando integrantes...
+                </td>
+            </tr>
+        `;
 
-    lista.forEach(integrante => {
+        const resposta = await fetch(
+            `${URL_API}?acao=buscarIntegrantes`
+        );
 
-        const linha = document.createElement("tr");
+        const integrantes = await resposta.json();
 
-        linha.className =
-            "border-b border-slate-100 hover:bg-slate-50 transition cursor-pointer";
+        if (!Array.isArray(integrantes)) {
+
+            throw new Error(
+                integrantes.mensagem || 'Erro ao buscar integrantes.'
+            );
+
+        }
+
+        renderizarTabela(integrantes);
+
+    } catch (erro) {
+
+        console.error(erro);
+
+        tabela.innerHTML = `
+            <tr>
+                <td colspan="8" class="px-5 py-8 text-center text-red-500">
+                    Erro ao carregar integrantes.
+                </td>
+            </tr>
+        `;
+
+    }
+
+}
 
 
-        linha.innerHTML = `
+function renderizarTabela(integrantes) {
 
-            <td class="px-5 py-4">
+    tabela.innerHTML = '';
 
-                <div class="flex items-center gap-3">
+    if (integrantes.length === 0) {
 
-                    <img
-                        src="${integrante.foto}"
-                        class="w-10 h-10 rounded-full object-cover">
+        tabela.innerHTML = `
+            <tr>
+                <td colspan="8" class="px-5 py-8 text-center text-slate-500">
+                    Nenhum integrante encontrado.
+                </td>
+            </tr>
+        `;
 
-                    <div>
+        return;
+    }
 
-                        <p class="font-medium text-slate-800">
-                            ${integrante.nome}
-                        </p>
 
-                        <p class="text-xs text-slate-400">
-                            ${integrante.cargo}
-                        </p>
+    integrantes.forEach(integrante => {
 
-                    </div>
+        const tr = document.createElement('tr');
 
-                </div>
+        tr.className =
+            'border-b border-slate-100 hover:bg-slate-50 transition cursor-pointer';
 
+
+        tr.innerHTML = `
+
+            <td class="px-5 py-4 text-sm text-slate-800 font-medium">
+                ${escaparHTML(integrante.nome)}
             </td>
-
 
             <td class="px-5 py-4 text-sm text-slate-600">
-
-                ${integrante.matricula}
-
+                ${escaparHTML(integrante.matricula)}
             </td>
-
 
             <td class="px-5 py-4 text-sm text-slate-600">
-
-                ${integrante.grupo}
-
+                ${escaparHTML(integrante.grupo)}
             </td>
-
-            <td class="px-5 py-4 text-sm text-slate-600 max-w-[240px]">
-
-                <span
-                    class="block truncate"
-                    title="${integrante.email}">
-                    ${integrante.email}
-                </span>
-
-            </td>
-
-
-            <td class="px-5 py-4">
-
-                <span class="
-                    px-3
-                    py-1
-                    rounded-full
-                    text-xs
-                    font-medium
-                    bg-blue-50
-                    text-blue-600
-                ">
-
-                    ${integrante.funcao}
-
-                </span>
-
-            </td>
-
 
             <td class="px-5 py-4 text-sm text-slate-600">
-
-                ${integrante.area}
-
+                ${escaparHTML(integrante.email)}
             </td>
-
 
             <td class="px-5 py-4 text-sm text-slate-600">
-
-                ${integrante.turno}
-
+                ${escaparHTML(integrante.funcao)}
             </td>
 
+            <td class="px-5 py-4 text-sm text-slate-600">
+                ${escaparHTML(integrante.area)}
+            </td>
 
-            <td class="px-5 py-4">
+            <td class="px-5 py-4 text-sm text-slate-600">
+                ${escaparHTML(integrante.turno)}
+            </td>
+
+            <td class="px-5 py-4 text-center">
 
                 <button
-                    class="btn-detalhes w-9 h-9 rounded-lg hover:bg-slate-100 text-slate-500"
-                    data-id="${integrante.id}">
+                    type="button"
+                    class="btnAbrirIntegrante w-9 h-9 rounded-lg
+                           hover:bg-slate-100 text-slate-500">
 
-                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                    <i class="fa-solid fa-chevron-right"></i>
 
                 </button>
 
             </td>
-
         `;
 
 
-        tabela.appendChild(linha);
+        tr.addEventListener('click', () => {
 
-    });
-
-
-    // BOTÕES DE DETALHES
-
-    document.querySelectorAll(".btn-detalhes").forEach(botao => {
-
-        botao.addEventListener("click", (evento) => {
-
-            evento.stopPropagation();
-
-            const id = Number(botao.dataset.id);
-
-            abrirModal(id);
+            abrirModal(integrante);
 
         });
 
+
+        tabela.appendChild(tr);
+
     });
 
 }
 
 
-// ABRIR MODAL
+function abrirModal(integrante) {
 
-function abrirModal(id) {
+    integranteAtual = { ...integrante };
 
-    const integrante =
-        integrantes.find(item => item.id === id);
+    dadosOriginais = {};
 
-    if (!integrante) return;
+    campos.forEach(campo => {
 
+        dadosOriginais[campo] =
+            normalizarValor(integrante[campo]);
 
-    document.getElementById("modalFoto").src =
-        integrante.foto;
-
-    document.getElementById("modalNome").textContent =
-        integrante.nome;
-
-    document.getElementById("modalGrupo").textContent =
-        integrante.grupo;
+    });
 
 
-    document.getElementById("modalNomeCompleto").textContent =
-        integrante.nome;
 
-    document.getElementById("modalMatricula").textContent =
-        integrante.matricula;
+    campos.forEach(campo => {
 
-    document.getElementById("modalGrupoCompleto").textContent =
-        integrante.grupo;
+        const elemento = document.querySelector(
+            `[name="${campo}"]`
+        );
 
-    document.getElementById("modalFuncao").textContent =
-        integrante.funcao;
+        if (elemento) {
 
-    document.getElementById("modalEmail").textContent =
-        integrante.email;
+            elemento.value =
+                integrante[campo] ?? '';
 
-    document.getElementById("modalTurno").textContent =
-        integrante.turno;
+        }
 
-    document.getElementById("modalRamal").textContent =
-        integrante.ramal;
-
-    document.getElementById("modalCelular").textContent =
-        integrante.celular;
-
-    document.getElementById("modalCargo").textContent =
-        integrante.cargo;
-
-    document.getElementById("modalArea").textContent =
-        integrante.area;
+    });
 
 
-    modal.classList.remove("hidden");
+    document.getElementById('modalNome').textContent =
+        integrante.nome || 'Integrante';
 
-    modal.classList.add("flex");
+    document.getElementById('modalGrupo').textContent =
+        integrante.grupo || '';
 
-}
+
+    const foto = document.getElementById('modalFoto');
+
+    if (integrante.foto) {
+
+        foto.src = integrante.foto;
+
+    } else {
+
+        foto.src =
+            'https://ui-avatars.com/api/?name=' +
+            encodeURIComponent(integrante.nome || 'Integrante') +
+            '&background=random&color=fff';
+
+    }
 
 
-// FECHAR MODAL
+    sairModoEdicao();
 
-function fecharModalIntegrante() {
-
-    modal.classList.add("hidden");
-
-    modal.classList.remove("flex");
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
 
 }
 
+btnEditar.addEventListener('click', () => {
 
-fecharModal.addEventListener(
-    "click",
-    fecharModalIntegrante
-);
+    entrarModoEdicao();
 
-btnFecharModal.addEventListener(
-    "click",
-    fecharModalIntegrante
-);
+});
 
 
-// FECHAR CLICANDO FORA
+function entrarModoEdicao() {
 
-modal.addEventListener("click", (evento) => {
+    campos.forEach(campo => {
 
-    if (evento.target === modal) {
+        const elemento = document.querySelector(
+            `[name="${campo}"]`
+        );
 
-        fecharModalIntegrante();
+        if (elemento) {
+
+            elemento.disabled = false;
+
+            elemento.classList.remove('bg-slate-50');
+
+            elemento.classList.add('bg-white');
+
+        }
+
+    });
+
+
+    btnEditar.classList.add('hidden');
+    btnSalvar.classList.remove('hidden');
+    btnCancelar.classList.remove('hidden');
+
+    btnFechar.classList.add('hidden');
+
+}
+
+btnCancelar.addEventListener('click', () => {
+
+    campos.forEach(campo => {
+
+        const elemento = document.querySelector(
+            `[name="${campo}"]`
+        );
+
+        if (elemento) {
+
+            elemento.value =
+                dadosOriginais[campo] ?? '';
+
+        }
+
+    });
+
+
+    sairModoEdicao();
+
+});
+
+
+function sairModoEdicao() {
+
+    campos.forEach(campo => {
+
+        const elemento = document.querySelector(
+            `[name="${campo}"]`
+        );
+
+        if (elemento) {
+
+            elemento.disabled = true;
+
+            elemento.classList.remove('bg-white');
+
+            elemento.classList.add('bg-slate-50');
+
+        }
+
+    });
+
+
+    btnEditar.classList.remove('hidden');
+    btnSalvar.classList.add('hidden');
+    btnCancelar.classList.add('hidden');
+
+    btnFechar.classList.remove('hidden');
+
+}
+
+  
+form.addEventListener('submit', async (event) => {
+
+    event.preventDefault();
+
+
+    const alteracoes = {};
+
+
+    campos.forEach(campo => {
+
+        const elemento = document.querySelector(
+            `[name="${campo}"]`
+        );
+
+        if (!elemento) {
+            return;
+        }
+
+
+        const valorAtual =
+            normalizarValor(elemento.value);
+
+        const valorOriginal =
+            normalizarValor(dadosOriginais[campo]);
+
+
+        if (valorAtual !== valorOriginal) {
+
+            alteracoes[campo] =
+                elemento.value.trim();
+
+        }
+
+    });
+
+
+    // Nenhuma alteração
+
+    if (Object.keys(alteracoes).length === 0) {
+
+        alert('Nenhuma alteração foi realizada.');
+
+        return;
+
+    }
+
+
+    // Desabilita botão enquanto salva
+
+    btnSalvar.disabled = true;
+
+    btnSalvar.innerHTML = `
+        <i class="fa-solid fa-spinner fa-spin mr-2"></i>
+        Salvando...
+    `;
+
+
+    try {
+
+        const resposta = await fetch(URL_API, {
+
+            method: 'POST',
+
+            headers: {
+                'Content-Type': 'text/plain;charset=utf-8'
+            },
+
+            body: JSON.stringify({
+
+                acao: 'atualizarIntegrante',
+
+                id: integranteAtual.id,
+
+                alteracoes: alteracoes
+
+            })
+
+        });
+
+
+        const resultado = await resposta.json();
+
+
+        if (!resultado.sucesso) {
+
+            throw new Error(
+                resultado.mensagem ||
+                'Não foi possível atualizar o integrante.'
+            );
+
+        }
+
+
+        alert('Integrante atualizado com sucesso!');
+
+
+        fecharModal();
+
+        carregarIntegrantes();
+
+
+    } catch (erro) {
+
+        console.error(erro);
+
+        alert(
+            'Erro ao salvar as alterações:\n' +
+            erro.message
+        );
+
+    } finally {
+
+        btnSalvar.disabled = false;
+
+        btnSalvar.innerHTML = `
+            <i class="fa-solid fa-check mr-2"></i>
+            Salvar alterações
+        `;
 
     }
 
 });
 
 
-// BUSCA
+// =====================================================
+// FECHAR MODAL
+// =====================================================
 
-busca.addEventListener("input", () => {
+btnFechar.addEventListener('click', () => {
 
-    const termo =
-        busca.value.toLowerCase().trim();
-
-
-    const resultado = integrantes.filter(integrante => {
-
-        return (
-
-            integrante.nome
-                .toLowerCase()
-                .includes(termo)
-
-            ||
-
-            integrante.matricula
-                .toLowerCase()
-                .includes(termo)
-
-            ||
-
-            integrante.grupo
-                .toLowerCase()
-                .includes(termo)
-
-            ||
-
-            integrante.cargo
-                .toLowerCase()
-                .includes(termo)
-
-            ||
-
-            integrante.area
-                .toLowerCase()
-                .includes(termo)
-
-        );
-
-    });
-
-
-    renderizarIntegrantes(resultado);
+    fecharModal();
 
 });
 
 
-// EXPORTAR
+btnFecharX.addEventListener('click', () => {
 
-document.getElementById("btnExportar")
-    .addEventListener("click", () => {
+    fecharModal();
 
-        let csv =
-            "Nome;Matricula;Grupo;Funcao;Email;Turno;Ramal;Celular;Cargo;Area\n";
+});
 
 
-        integrantes.forEach(integrante => {
+function fecharModal() {
 
-            csv +=
-                `"${integrante.nome}";` +
-                `"${integrante.matricula}";` +
-                `"${integrante.grupo}";` +
-                `"${integrante.funcao}";` +
-                `"${integrante.email}";` +
-                `"${integrante.turno}";` +
-                `"${integrante.ramal}";` +
-                `"${integrante.celular}";` +
-                `"${integrante.cargo}";` +
-                `"${integrante.area}"\n`;
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
 
-        });
+    integranteAtual = null;
+    dadosOriginais = {};
+
+}
 
 
-        const blob = new Blob(
-            [csv],
-            { type: "text/csv;charset=utf-8;" }
-        );
+// =====================================================
+// BUSCA
+// =====================================================
+
+busca.addEventListener('input', () => {
+
+    const termo =
+        busca.value.toLowerCase().trim();
+
+    const linhas =
+        tabela.querySelectorAll('tr');
 
 
-        const url =
-            URL.createObjectURL(blob);
+    linhas.forEach(linha => {
 
+        const texto =
+            linha.textContent.toLowerCase();
 
-        const link =
-            document.createElement("a");
+        if (texto.includes(termo)) {
 
+            linha.style.display = '';
 
-        link.href = url;
+        } else {
 
-        link.download =
-            "integrantes-igrupos.csv";
+            linha.style.display = 'none';
 
-
-        link.click();
-
-
-        URL.revokeObjectURL(url);
+        }
 
     });
 
+});
 
-// INICIALIZA
 
-renderizarIntegrantes(integrantes);
+// =====================================================
+// NORMALIZAR VALORES
+// =====================================================
+
+function normalizarValor(valor) {
+
+    if (valor === null || valor === undefined) {
+
+        return '';
+
+    }
+
+    return String(valor).trim();
+
+}
+
+
+// =====================================================
+// SEGURANÇA DO HTML
+// =====================================================
+
+function escaparHTML(valor) {
+
+    if (valor === null || valor === undefined) {
+
+        return '';
+
+    }
+
+    return String(valor)
+
+        .replace(/&/g, '&amp;')
+
+        .replace(/</g, '&lt;')
+
+        .replace(/>/g, '&gt;')
+
+        .replace(/"/g, '&quot;')
+
+        .replace(/'/g, '&#039;');
+
+}
